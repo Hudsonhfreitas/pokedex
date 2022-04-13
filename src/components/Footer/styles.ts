@@ -10,7 +10,7 @@ export const Container = styled.footer`
         align-items: center;
         justify-content: space-between;
     }
-`
+`;
 
 export const Text = styled.div`
     h3 {
@@ -22,4 +22,4 @@ export const Text = styled.div`
         line-height: 180%;
         color:  rgba(255, 255, 255, 0.37);
     }
-`
+`;

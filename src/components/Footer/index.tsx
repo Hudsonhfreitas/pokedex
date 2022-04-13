@@ -10,7 +10,7 @@ export function Footer() {
                     <p>Consumindo e exibindo dados de uma API</p>
                 </S.Text>
                 <a href='https://codeboost.com.br' target='_blank' rel="noreferrer">
-                    <img src={logo} alt='Logo Codeboost'/>
+                    <img src={logo} alt='Logo do curso Codeboost'/>
                 </a>
             </div>
         </S.Container>
