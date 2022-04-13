@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { colors } from "../../styles/colors";
 
 export const Container = styled.footer`
     width: 100%;
-    background-color: #3F5DB3;
+    background-color: ${colors['all']};
     padding-top: 6.7rem;
     padding-bottom: 6.5rem;
     .container {
