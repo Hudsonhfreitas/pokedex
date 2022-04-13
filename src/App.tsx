@@ -8,19 +8,18 @@ import { Search } from "./components/Search";
 import { TagType } from "./components/TagType";
 
 function App() {
-
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
 
   return (
     <>
       <Header />
       <Search value={search} onChange={setSearch} />
-      <FilterItem name="all" filterColor="all"/>
-      <FilterItem name="bug" filterColor="bug"/>
-      <FilterItem name="fairy" filterColor="fairy"/>
-      <FilterItem name="fire" filterColor="fire"/>
-      <CardPokemon pokemonType="fire"/>
-      <TagType type="fire" color="fire"/>
+      <FilterItem name="all" filterColor="all" />
+      <FilterItem name="bug" filterColor="bug" />
+      <FilterItem name="fairy" filterColor="fairy" />
+      <FilterItem name="fire" filterColor="fire" />
+      <CardPokemon pokemonType="fire" />
+      <TagType type="fire" color="fire" />
       <LoadMore />
       <Footer />
     </>
