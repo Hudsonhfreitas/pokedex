@@ -42,7 +42,7 @@ export function Hero() {
                                         <img src={RedPokeball} alt="Pokebola vermelha"/>
                                     </div>
                                 </div>
-                                <S.AreaExplore className="area-expolore">
+                                <S.AreaExplore>
                                     <div className="txt">
                                         <div className="icon">
                                             <HiArrowNarrowDown />
@@ -64,7 +64,7 @@ export function Hero() {
                                         </div>
                                         <p>pokedex</p>
                                     </S.Tag>
-                                    <h1>Who is that Pokémon?</h1>
+                                    <h1>Catch them all!</h1>
                                     <p>The perfect guide for those who want to hunt Pokémons around the world</p>
                                     <div className="image">
                                         <img src={Lights} alt="Luzes" className='lights'/>
@@ -83,7 +83,7 @@ export function Hero() {
                         </div>                        
                     </SwiperSlide>
                 </Swiper>
-                </div>
+            </div>
         </S.Container>
     )
 }

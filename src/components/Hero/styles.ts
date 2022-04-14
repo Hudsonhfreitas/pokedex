@@ -99,7 +99,70 @@ export const Container = styled.div`
       }
     }
   }
-  
+  @media (max-width: 768px) {
+    height: 95.4rem;
+    .slide-hero {
+      .swiper-slide {
+        &.blue {
+          .main-area {
+            .text {
+              h1 {
+                max-width: 38.5rem;
+                margin: 0 auto;
+                margin-top: 2.9rem;
+                margin-bottom: 8px;
+              }
+            }
+          }
+        }
+        &::after {
+          height: 25rem;
+        }
+        .main-area {
+          .text {
+            .image {
+              margin-top: 8.2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 560px) {
+    overflow: hidden;
+    height: 104.5rem;
+    .slide-hero {
+      .swiper-slide {
+        &.blue {
+          .main-area {
+            .text {
+              h1 {
+                max-width: 25.4rem;
+              }
+            }
+          }
+        }
+        .main-area {
+          padding-top: 12rem;
+          h1 {
+            font-size: 4.8rem;
+            line-height: 5.9rem;
+          }
+          .image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img {
+              max-width: 720px;
+            }
+          }
+        }
+        &::after {
+          height: 34rem;
+        }
+      }
+    }
+  }
 `;
 
 export const Tag = styled.span`
@@ -179,5 +242,8 @@ export const AreaExplore = styled.div`
       color: #FFFFFF;
       margin-left: 3rem;
     }
+  }
+  @media (max-width: 768px) {
+    display: none;
   }
 `

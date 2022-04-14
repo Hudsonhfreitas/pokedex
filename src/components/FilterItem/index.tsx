@@ -10,7 +10,7 @@ type AsideButton = {
 export function FilterItem({ name, filterColor }: AsideButton) {
   return (
     <S.Container filterColor={filterColor}>
-      <img src={require(`../../assets/filter_icons/${name}.svg`)} />
+      <img src={require(`../../assets/filter_icons/${name}.svg`)} alt={name}/>
       {name}
     </S.Container>
   );

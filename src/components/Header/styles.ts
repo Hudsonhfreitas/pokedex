@@ -19,4 +19,10 @@ export const Container = styled.header`
       color: #fff;
     }
   }
+  @media (max-width: 560px) {
+    height: 8.2rem;
+    img {
+      max-width: 129px;
+    }
+  }
 `;

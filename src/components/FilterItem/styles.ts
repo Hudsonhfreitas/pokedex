@@ -19,6 +19,8 @@ export const Container = styled.button<FilterItemsParams>`
 
   img {
     padding-right: 2.5rem;
+    width: 40px;
+    height: 16px;
   }
 
   &:hover {
