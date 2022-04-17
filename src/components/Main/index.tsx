@@ -5,8 +5,13 @@ import IconPokeball from '../../assets/icon-pokeball.svg';
 import * as S from './styles'
 import { CardPokemon } from '../CardPokemon';
 import { LoadMore } from '../LoadMore';
+import { SelectMobile } from '../SelectMobile';
+import { useState } from 'react';
 
 export function Main() {
+
+    const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
+
     return (
         <S.Container>
             <div className="container">
@@ -84,6 +89,7 @@ export function Main() {
                                 <span><strong>150</strong> Pokémons</span>
                             </div>
                         </div>
+                        <SelectMobile isSelectOpen={isSelectMobileOpen} setIsSelectMobileOpen={setIsSelectMobileOpen}/>
                         <S.AllPokemons>
                             <CardPokemon pokemonType='grass' />
                             <CardPokemon pokemonType='poison' />

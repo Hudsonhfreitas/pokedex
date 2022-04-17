@@ -21,6 +21,9 @@ export const Container = styled.button`
     transform: scale(1.02);
     box-shadow: 0px 12px 40px -5px rgba(90, 96, 100, 0.3);
   }
+  @media(max-width: 1200px) {
+    max-width: 100%;
+  }
 `;
 export const ImgContainer = styled.div<CardPokemonParams>`
   position: relative;
