@@ -9,7 +9,7 @@ type ModalProps = {
 }
 
 export const Container = styled.div<ModalProps>`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -22,7 +22,7 @@ export const Container = styled.div<ModalProps>`
   pointer-events: ${(props) => props.isVisible ? 'all' : 'none'};
   transition: all .3s;
   .overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -44,6 +44,12 @@ export const Box = styled.div<ModalProps>`
   display: flex;
   transform: ${(props) => props.isVisible ? 'translateY(0)' : 'translateY(4rem)'};
   transition: transform .3s ease;
+  @media(max-width:  560px) {
+    height: 90%;
+    flex-direction: column;
+    align-self: flex-end;
+    border-radius: 0;
+  }
 `;
 
 export const CloseModal = styled.button`
@@ -60,6 +66,15 @@ export const CloseModal = styled.button`
   svg {
     font-size: 2rem;
   }
+  @media(max-width:  560px) {
+    top: -4.9rem;
+    height: 5rem;
+    border-radius: 8px 8px 0 0;
+    width: 5rem;
+    svg {
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 export const LeftContainer = styled.div<LeftContainerProps>`
@@ -70,6 +85,11 @@ export const LeftContainer = styled.div<LeftContainerProps>`
   background-image: ${(props) => `url(${require(`../../assets/modal_bg/${props.type}_bg.svg`)})`};
   background-repeat: no-repeat;
   background-position: center center;
+  @media(max-width:  560px) {
+    max-width: 100%;
+    height: 12.5rem;
+    background-size: cover;
+  }
 `;
 
 export const Icon = styled.div`
@@ -90,6 +110,17 @@ export const Image = styled.div`
   left: 1.4rem;
   bottom: 13.1rem;
   width: 20.2rem;
+  @media(max-width:  560px) {
+    left: 50%;
+    bottom: -2.5rem;
+    width: 12rem;
+    margin-left: -6rem;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 `;
 
 export const RightContainer = styled.div`
@@ -117,6 +148,12 @@ export const RightContainer = styled.div`
         margin-left: 8px;
     }
   }
+  @media(max-width:  560px) {
+    padding: 4rem 2.4rem;
+    .name {
+      justify-content: center;
+    }
+  }
 `;
 
 export const TypeList = styled.ul`
@@ -129,6 +166,9 @@ export const TypeList = styled.ul`
     &:not(:last-child) {
       margin-right: 1rem;
     }
+  }
+  @media(max-width:  560px) {
+    justify-content: center;
   }
 `;
 
@@ -158,6 +198,9 @@ export const InfoList = styled.ul`
       color: #2F3133;    
     }
   }
+  @media(max-width:  560px) {
+    justify-content: center;
+  }
 `;
 
 export const Weaknesses = styled.div`
@@ -181,6 +224,26 @@ export const Weaknesses = styled.div`
             margin-right: 1rem;
         }
       }
+  }
+  @media(max-width:  560px) {
+    h4 {
+      text-align: center
+    }
+    ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      li {
+        margin: 0;
+        &:not(:last-child) {
+            margin-right: 0;
+        }
+        span {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
   }
 `;
 
@@ -244,5 +307,15 @@ export const BarStatus = styled.div`
                margin-left: 5.4rem;
            }
        }
+  }
+  @media(max-width:  560px) {
+    width: 75%;
+    .separator {
+      li {
+           &:not(:first-child) {
+               margin-left: 19%;
+           }
+       }
+    }
   }
 `

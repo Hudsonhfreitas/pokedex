@@ -1,5 +1,6 @@
 import { useModal } from "../../hooks/ModalContext";
 import { ColorsType } from "../../styles/colors";
+import Bulbasaur from '../../assets/bulbasaur.svg';
 import * as S from "./styles";
 
 type CardPokemonParams = {
@@ -17,7 +18,7 @@ export function CardPokemon({ pokemonType }: CardPokemonParams) {
   return (
     <S.Container onClick={handleModal}>
       <S.ImgContainer pokemonType={pokemonType}>
-        <img />
+        <img src={Bulbasaur} alt="" />
       </S.ImgContainer>
       <S.Info>
         <div className="text">

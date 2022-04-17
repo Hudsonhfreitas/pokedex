@@ -1,8 +1,9 @@
-import * as S from "./styles";
 import { MdOutlineClose } from 'react-icons/md';
-import grass from '../../assets/filter_icons/grass.svg';
 import { TagType } from "../TagType";
 import { useModal } from "../../hooks/ModalContext";
+import Bulbasaur from '../../assets/bulbasaur.svg';
+import grass from '../../assets/filter_icons/grass.svg';
+import * as S from "./styles";
 
 export function Modal() {
 
@@ -25,7 +26,7 @@ export function Modal() {
             <img src={grass} alt="grass" />
           </S.Icon>
           <S.Image>
-            <img src="" alt=""/>
+            <img src={Bulbasaur} alt=""/>
           </S.Image>
         </S.LeftContainer>
 
