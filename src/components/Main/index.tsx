@@ -6,11 +6,46 @@ import * as S from './styles'
 import { CardPokemon } from '../CardPokemon';
 import { LoadMore } from '../LoadMore';
 import { SelectMobile } from '../SelectMobile';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { listingPokemons } from '../../services/api';
+import { ColorsType } from '../../styles/colors';
 
-export function Main() {
+type MainProps = { 
+    pokemons: any;
+};
+
+type PokemonType = {
+    name: string;
+    url: string;
+};
+
+type PokemonInfo = {
+    id: string;
+    name: string;
+    image: string;
+    type: keyof ColorsType;
+};
+
+export function Main({ pokemons }: MainProps) {
 
     const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
+    const [pokemonsData, setPokemonsData] = useState<PokemonInfo[]>([])
+
+    useEffect(() => {
+        if(pokemons) {
+            pokemons.results.map(async (pokemon: PokemonType) => {
+                const { name, id, sprites, types } = await listingPokemons(pokemon.url);
+                
+                let info = {
+                    id,
+                    name,
+                    image: sprites.front_default,
+                    type: types[0].type.name
+                }
+                setPokemonsData((oldArray: any) => [...oldArray, info]);
+            })
+        }
+    },[pokemons])
 
     return (
         <S.Container>
@@ -86,20 +121,19 @@ export function Main() {
                         <div className="top-container">
                             <div>
                                 <img src={IconPokeball} alt='red pokeball' />
-                                <span><strong>150</strong> Pokémons</span>
+                                <span><strong>{pokemons ? pokemons.count : '0'}</strong> Pokémons</span>
                             </div>
                         </div>
                         <SelectMobile isSelectOpen={isSelectMobileOpen} setIsSelectMobileOpen={setIsSelectMobileOpen}/>
                         <S.AllPokemons>
-                            <CardPokemon pokemonType='grass' />
-                            <CardPokemon pokemonType='poison' />
-                            <CardPokemon pokemonType='fire' />
-                            <CardPokemon pokemonType='grass' />
-                            <CardPokemon pokemonType='poison' />
-                            <CardPokemon pokemonType='fire' />
-                            <CardPokemon pokemonType='grass' />
-                            <CardPokemon pokemonType='poison' />
-                            <CardPokemon pokemonType='fire' />
+                            {pokemonsData && pokemonsData.map((pokemon: PokemonInfo) => (
+                                <CardPokemon 
+                                  id={pokemon.id}
+                                  name={pokemon.name} 
+                                  pokemonType={pokemon.type} 
+                                  image={pokemon.image}
+                                />
+                            ))}
                         </S.AllPokemons>
                         <LoadMore />
                     </S.RightContainer>

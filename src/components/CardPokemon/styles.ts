@@ -52,6 +52,9 @@ export const Info = styled.div`
   justify-content: space-between;
   padding: 0 2.8rem;
   .text {
+    h3 {
+      text-transform: capitalize;
+    }
     span {
       text-align: left;
       display: block;

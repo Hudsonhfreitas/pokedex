@@ -1,13 +1,15 @@
 import { useModal } from "../../hooks/ModalContext";
 import { ColorsType } from "../../styles/colors";
-import Bulbasaur from '../../assets/bulbasaur.svg';
 import * as S from "./styles";
 
 type CardPokemonParams = {
+  id: string;
+  name: string;
   pokemonType: keyof ColorsType;
+  image: string;
 };
 
-export function CardPokemon({ pokemonType }: CardPokemonParams) {
+export function CardPokemon({ id, pokemonType, name, image }: CardPokemonParams) {
 
   const { setModalIsOpen } = useModal();
 
@@ -18,15 +20,15 @@ export function CardPokemon({ pokemonType }: CardPokemonParams) {
   return (
     <S.Container onClick={handleModal}>
       <S.ImgContainer pokemonType={pokemonType}>
-        <img src={Bulbasaur} alt="" />
+        <img src={image} alt="" />
       </S.ImgContainer>
       <S.Info>
         <div className="text">
-          <span>#001</span>
-          <h3>Bulbassauro</h3>
+          <span>{id && id.toString().split('').length > 1 ? `#0${id}` : `#00${id}` }</span>
+          <h3>{name}</h3>
         </div>
         <div className="icon">
-          <img src={require(`../../assets/filter_icons/dragon.svg`)} alt="pokemon"/>
+          <img src={require(`../../assets/filter_icons/${pokemonType}.svg`)} alt={name}/>
         </div>
       </S.Info>
     </S.Container>
