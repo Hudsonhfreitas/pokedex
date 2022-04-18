@@ -28,6 +28,7 @@ export const colors = {
   electric: "#EED967",
   fairy: "#E296E1",
   fight: "#C44D61",
+  fighting: "#C44D61",
   ground: "#CE8056",
   ice: "#8BCEC1",
   normal: "#A0A29F",

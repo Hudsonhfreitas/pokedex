@@ -35,7 +35,6 @@ export function Main({ pokemons }: MainProps) {
         if(pokemons) {
             pokemons.results.map(async (pokemon: PokemonType) => {
                 const { name, id, sprites, types } = await listingPokemons(pokemon.url);
-                console.log(sprites)
                 let info = {
                     id,
                     name,

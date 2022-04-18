@@ -13,6 +13,7 @@ export function CardPokemon({ id, pokemonType, name, image }: CardPokemonParams)
 
   const { setModalIsOpen } = useModal();
 
+  console.log(pokemonType)
   function handleModal() {
     setModalIsOpen((modalIsOpen) => !modalIsOpen);
   };
