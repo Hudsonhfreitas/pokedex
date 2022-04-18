@@ -35,11 +35,11 @@ export function Main({ pokemons }: MainProps) {
         if(pokemons) {
             pokemons.results.map(async (pokemon: PokemonType) => {
                 const { name, id, sprites, types } = await listingPokemons(pokemon.url);
-                
+                console.log(sprites)
                 let info = {
                     id,
                     name,
-                    image: sprites.front_default,
+                    image: sprites.other.dream_world.front_default,
                     type: types[0].type.name
                 }
                 setPokemonsData((oldArray: any) => [...oldArray, info]);
@@ -128,6 +128,7 @@ export function Main({ pokemons }: MainProps) {
                         <S.AllPokemons>
                             {pokemonsData && pokemonsData.map((pokemon: PokemonInfo) => (
                                 <CardPokemon 
+                                  key={pokemon.id}
                                   id={pokemon.id}
                                   name={pokemon.name} 
                                   pokemonType={pokemon.type} 

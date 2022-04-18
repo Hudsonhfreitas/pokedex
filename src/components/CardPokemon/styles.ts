@@ -34,6 +34,9 @@ export const ImgContainer = styled.div<CardPokemonParams>`
   justify-content: center;
   margin: 0 auto;
   margin-bottom: 1.4rem;
+  img {
+    max-width: 160px;
+  }
   &::after {
     content: "";
     width: 16.5rem;

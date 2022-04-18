@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     async function getPokemons() {
-      const response = await listingPokemons('https://pokeapi.co/api/v2/pokemon?limit=9&offset=0')
+      const response = await listingPokemons('https://pokeapi.co/api/v2/pokemon?limit=70&offset=0')
       setPokemons(response)
     }
 
