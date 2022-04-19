@@ -50,11 +50,9 @@ export function Main() {
     const [pokemons, setPokemons] = useState<any>();
     const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
     const [currentTypeFilter, setCurrentTypeFilter] = useState('all');
-    const [pokemonsData, setPokemonsData] = useState<PokemonInfo[]>([])
+    const [pokemonsData, setPokemonsData] = useState<PokemonInfo[]>([]);
 
     function getPokemonsDetails(pokemons: Array<any>, type?: boolean) {
-
-        setPokemonsData([])
 
         pokemons.map(async (pokemon: PokemonType) => {
             const { name, id, sprites, types } = type ? await listingPokemons(pokemon.pokemon.url) : await listingPokemons(pokemon.url);
@@ -68,9 +66,14 @@ export function Main() {
         })
     }
 
+    async function handleLoadMore(url: string) {
+        const response = await listingPokemons(url);
+        setPokemons(response)
+        getPokemonsDetails(response.results, false)
+    }
+
     useEffect(() => {
         let typeId = 0;
-
         switch(currentTypeFilter) {
             case 'all':
                 typeId = 0;
@@ -134,11 +137,13 @@ export function Main() {
         async function getPokemons() {
             if ( typeId === 0 ) {
                 const response = await listingPokemons('https://pokeapi.co/api/v2/pokemon?limit=9&offset=0');
+                setPokemonsData([])
                 setPokemons(response)
                 getPokemonsDetails(response.results, false)
             }
             else {
                 const response = await listingPokemons(`https://pokeapi.co/api/v2/type/${typeId}`);
+                setPokemonsData([])
                 setPokemons(response)
                 getPokemonsDetails(response.pokemon, true)
             }
@@ -159,8 +164,8 @@ export function Main() {
                 <S.AreaAll>
                     <S.Aside>
                         <ul>
-                            {types.map((item, i) => (
-                                <li key={item + i} >
+                            {types.map((item) => (
+                                <li key={item} >
                                     <FilterItem
                                       name={item} 
                                       currentType={currentTypeFilter}
@@ -189,7 +194,10 @@ export function Main() {
                                 />
                             ))}
                         </S.AllPokemons>
-                        <LoadMore />
+                        <LoadMore 
+                          style={currentTypeFilter !== 'all' ? {display:'none'} : {display: 'block'}}
+                          onClick={() => handleLoadMore(pokemons.next)}
+                          />
                     </S.RightContainer>
                 </S.AreaAll>
             </div>
