@@ -1,15 +1,16 @@
+import { ButtonHTMLAttributes } from "react";
 import { ColorsType } from "../../styles/colors";
 
 import * as S from "./styles";
 
-type AsideButton = {
+interface AsideButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   name: string;
-  filterColor: keyof ColorsType;
+  currentType?: string;
 };
 
-export function FilterItem({ name, filterColor }: AsideButton) {
+export function FilterItem({ name, currentType, ...props}: AsideButton) {
   return (
-    <S.Container filterColor={filterColor}>
+    <S.Container filterColor={name as keyof ColorsType} className={ currentType === name ? 'active' : '' } {...props}>
       <img src={require(`../../assets/filter_icons/${name}.svg`)} alt={name}/>
       {name}
     </S.Container>

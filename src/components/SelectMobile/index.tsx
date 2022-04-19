@@ -16,28 +16,7 @@ export function SelectMobile({ isSelectOpen, setIsSelectMobileOpen }: SelectMobi
             </button>
             <ul>
                 <li>
-                    <FilterItem name='all' filterColor='all'/>
-                </li>
-                <li>
-                    <FilterItem name='all' filterColor='all'/>
-                </li>
-                <li>
-                    <FilterItem name='all' filterColor='all'/>
-                </li>
-                <li>
-                    <FilterItem name='all' filterColor='all'/>
-                </li>
-                <li>
-                    <FilterItem name='all' filterColor='all'/>
-                </li>
-                <li>
-                    <FilterItem name='all' filterColor='all'/>
-                </li>
-                <li>
-                    <FilterItem name='all' filterColor='all'/>
-                </li>
-                <li>
-                    <FilterItem name='all' filterColor='all'/>
+                    <FilterItem name='all' />
                 </li>
             </ul>
         </S.Container>

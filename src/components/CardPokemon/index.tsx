@@ -3,17 +3,15 @@ import { ColorsType } from "../../styles/colors";
 import * as S from "./styles";
 
 type CardPokemonParams = {
-  id: string;
+  id: number;
   name: string;
   pokemonType: keyof ColorsType;
   image: string;
 };
 
 export function CardPokemon({ id, pokemonType, name, image }: CardPokemonParams) {
-
   const { setModalIsOpen } = useModal();
 
-  console.log(pokemonType)
   function handleModal() {
     setModalIsOpen((modalIsOpen) => !modalIsOpen);
   };
@@ -25,7 +23,9 @@ export function CardPokemon({ id, pokemonType, name, image }: CardPokemonParams)
       </S.ImgContainer>
       <S.Info>
         <div className="text">
-          <span>{id && id.toString().split('').length > 1 ? `#0${id}` : `#00${id}` }</span>
+          <span>
+            { id && id < 10 ? `#00${id}` : ( id < 100 ? `#0${id}` : `#${id}`) }
+          </span>
           <h3>{name}</h3>
         </div>
         <div className="icon">

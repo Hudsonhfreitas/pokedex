@@ -23,7 +23,7 @@ export const Container = styled.button<FilterItemsParams>`
     height: 16px;
   }
 
-  &:hover {
+  &:hover, &.active {
     color: ${(props) => colors[props.filterColor]};
     filter: grayscale(0%);
   }
