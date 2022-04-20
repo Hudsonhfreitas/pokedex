@@ -301,7 +301,7 @@ export const BarStatus = styled.div<BarStatusProps>`
       position: absolute;
       top: 0;
       left: 0;
-      width: ${(props) => props.percentage}%;
+      width: ${(props) => props.percentage > 100 ? 100 : props.percentage}%;
       height: 100%;
       background-color: #C20001;
       z-index: 0;
@@ -316,7 +316,7 @@ export const BarStatus = styled.div<BarStatusProps>`
         justify-content: center;
        li {
            width: 4px;
-           height: 3px;
+           height: 4px;
            background-color: #FFF;
            &:not(:first-child) {
                margin-left: 5.4rem;
