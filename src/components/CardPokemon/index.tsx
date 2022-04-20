@@ -1,30 +1,25 @@
-import { useModal } from "../../hooks/ModalContext";
+import { ButtonHTMLAttributes } from "react";
 import { ColorsType } from "../../styles/colors";
 import * as S from "./styles";
 
-type CardPokemonParams = {
-  id: number;
+interface CardPokemonParams extends ButtonHTMLAttributes<HTMLButtonElement> {
+  pokemonId: number;
   name: string;
   pokemonType: keyof ColorsType;
   image: string;
 };
 
-export function CardPokemon({ id, pokemonType, name, image }: CardPokemonParams) {
-  const { setModalIsOpen } = useModal();
-
-  function handleModal() {
-    setModalIsOpen((modalIsOpen) => !modalIsOpen);
-  };
+export function CardPokemon({ pokemonId, pokemonType, name, image, ...props }: CardPokemonParams) {
 
   return (
-    <S.Container onClick={handleModal}>
+    <S.Container {...props}>
       <S.ImgContainer pokemonType={pokemonType}>
         <img src={image} alt="" />
       </S.ImgContainer>
       <S.Info>
         <div className="text">
           <span>
-            { id && id < 10 ? `#00${id}` : ( id < 100 ? `#0${id}` : `#${id}`) }
+            { pokemonId && pokemonId < 10 ? `#00${pokemonId}` : ( pokemonId < 100 ? `#0${pokemonId}` : `#${pokemonId}`) }
           </span>
           <h3>{name}</h3>
         </div>

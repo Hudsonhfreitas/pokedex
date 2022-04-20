@@ -7,8 +7,9 @@ import { SelectMobile } from '../SelectMobile';
 import { useEffect, useState } from 'react';
 import { listingPokemons } from '../../services/api';
 import { ColorsType } from '../../styles/colors';
-import IconPokeball from '../../assets/icon-pokeball.svg';
+import { useModal } from '../../hooks/ModalContext';
 import { types } from '../../utils/pokemonTypes';
+import IconPokeball from '../../assets/icon-pokeball.svg';
 import * as S from './styles'
 
 type PokemonType = {
@@ -24,6 +25,12 @@ type PokemonInfo = {
     type: keyof ColorsType;
 };
 
+type InfoParams = {
+    id: number;
+    name: string,
+    image: string,
+    type: string;
+}
 
 export function Main() {
 
@@ -32,17 +39,19 @@ export function Main() {
     const [currentTypeFilter, setCurrentTypeFilter] = useState('all');
     const [pokemonsData, setPokemonsData] = useState<PokemonInfo[]>([]);
     const [search, setSearch] = useState('');
-    const [errors, setErrors] = useState('')
+    const [errors, setErrors] = useState('');
+
+    const { setModalIsOpen, setPokemonModalDetails } = useModal();
 
     function getPokemonsDetails(pokemons: Array<any>, type?: boolean) {
         setErrors('')
         try {
             pokemons.map(async (pokemon: PokemonType) => {
                 const { name, id, sprites, types } = type ? await listingPokemons(pokemon.pokemon.url) : await listingPokemons(pokemon.url);
-                let info = {
+                let info: InfoParams = {
                     id,
                     name,
-                    image: sprites.other.dream_world.front_default,
+                    image: sprites.other.dream_world.front_default !== null ? sprites.other.dream_world.front_default : sprites.front_default,
                     type: types[0].type.name
                 }
                 setPokemonsData((oldArray: any) => [...oldArray, info]);
@@ -67,7 +76,7 @@ export function Main() {
             let info = {
                 id,
                 name,
-                image: sprites.other.dream_world.front_default,
+                image: sprites.other.dream_world.front_default !== null ? sprites.other.dream_world.front_default : sprites.front_default,
                 type: types[0].type.name
             }
             setPokemons({count: 1})
@@ -76,6 +85,28 @@ export function Main() {
             setErrors('Pokémon não encontrado. Tente novamente!');
             console.log(e)
         }
+    }
+
+    async function handleShowDetails(poke_id: number) {
+        const { name, id, sprites, types, abilities, height, weight, stats } = await listingPokemons(`https://pokeapi.co/api/v2/pokemon/${poke_id}`);
+        const { damage_relations } = await listingPokemons(types[0].type.url);
+        
+        let details = {
+            id,
+            name,
+            image: sprites.other.dream_world.front_default !== null ? sprites.other.dream_world.front_default : sprites.front_default,
+            types: types.map((item: any) => item.type.name),
+            abilities: abilities.map((ability: any) => ability.ability.name),
+            height,
+            weight,
+            weaknesses: damage_relations.double_damage_from.map((item: any) => item.name),
+            stats: stats.map((item: any) => ({
+                name: item.stat.name,
+                value: item.base_stat
+            }))
+        }
+        setPokemonModalDetails(details)
+        setModalIsOpen(true)
     }
 
     useEffect(() => {
@@ -206,15 +237,16 @@ export function Main() {
                                 {pokemonsData && pokemonsData.map((pokemon: PokemonInfo) => (
                                     <CardPokemon 
                                         key={pokemon.id}
-                                        id={pokemon.id}
+                                        pokemonId={pokemon.id}
                                         name={pokemon.name} 
                                         pokemonType={pokemon.type} 
                                         image={pokemon.image}
+                                        onClick={() => handleShowDetails(pokemon.id)}
                                     />
                                 ))}
                             </S.AllPokemons>
                             <LoadMore 
-                                style={currentTypeFilter !== 'all' || (pokemons && pokemons.next ) ? {display:'none'} : {display: 'block'}}
+                                style={currentTypeFilter !== 'all' || (pokemons && !pokemons.next ) ? {display: 'none'} : {display: 'block'}}
                                 onClick={() => handleLoadMore(pokemons.next)}
                             />
                         </>

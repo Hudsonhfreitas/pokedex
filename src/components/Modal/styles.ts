@@ -8,6 +8,10 @@ type ModalProps = {
     isVisible: boolean;
 }
 
+type BarStatusProps = {
+  percentage: number
+}
+
 export const Container = styled.div<ModalProps>`
   position: fixed;
   top: 0;
@@ -36,7 +40,7 @@ export const Box = styled.div<ModalProps>`
   position: relative;
   width: 100%;
   max-width: 71rem;
-  height: 50.8rem;
+  height: 53.8rem;
   background-color: #FFF;
   z-index: auto;
   border-radius: 16px;
@@ -85,10 +89,13 @@ export const LeftContainer = styled.div<LeftContainerProps>`
   background-image: ${(props) => `url(${require(`../../assets/modal_bg/${props.type}_bg.svg`)})`};
   background-repeat: no-repeat;
   background-position: center center;
+  background-size: cover;
+  border-radius: 16px 0 0 16px;
   @media(max-width:  560px) {
     max-width: 100%;
     height: 12.5rem;
     background-size: cover;
+    border-radius: 0;
   }
 `;
 
@@ -125,6 +132,7 @@ export const Image = styled.div`
 
 export const RightContainer = styled.div`
   padding: 3.5rem 7.2rem 2.9rem 7.4rem;
+  width: 100%;
   .name {
     display:flex;
     align-items: flex-end;
@@ -136,6 +144,7 @@ export const RightContainer = styled.div`
         line-height: 3.4rem;
         letter-spacing: -0.01em;
         color: #2F3133;
+        text-transform: capitalize;
     }
     span {
         position: relative;
@@ -179,6 +188,11 @@ export const InfoList = styled.ul`
   li {
     &:not(:last-child) {
       margin-right: 4.8rem;
+    }
+    &.ability {
+      strong {
+        text-transform: capitalize;
+      }
     }
     span {
       display: block;
@@ -269,14 +283,15 @@ export const StatsItem = styled.div`
   }
   span {
     display: block;
-    width: 6.8rem;
+    width: 7rem;
     font-size: 1.2rem;
     line-height: 1.5rem;
     color: #7a7d80;
+    text-transform: capitalize;
   }
 `;
 
-export const BarStatus = styled.div`
+export const BarStatus = styled.div<BarStatusProps>`
   position: relative;
   width: 100%;
   height: 3px;
@@ -286,7 +301,7 @@ export const BarStatus = styled.div`
       position: absolute;
       top: 0;
       left: 0;
-      width: 56%;
+      width: ${(props) => props.percentage}%;
       height: 100%;
       background-color: #C20001;
       z-index: 0;

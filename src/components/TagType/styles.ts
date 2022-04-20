@@ -16,7 +16,8 @@ export const Container = styled.span<TagTypeProps>`
   font-size: 1.3rem;
   letter-spacing: -0.01em;
   font-family: "Montserrat", sans-serif;
-  background-color: ${(props) => lighten(0.28, colors[props.color])};
+  background-color: ${(props) => lighten(0.2, colors[props.color])};
   color: ${(props) => colors[props.color]};
   text-transform: capitalize;
+  margin-top: .5rem;
 `;
