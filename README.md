@@ -1,4 +1,4 @@
-Pkedéx uma aplicação feita com React, TypeScript, Styled-components; Para o consumo da API Pokeapi foi utilizado Axios.
+Pokedéx uma aplicação feita com React, TypeScript, Styled-components; Para o consumo da API Pokeapi foi utilizado Axios.
 
 ## Aplicação: https://lnkd.in/d7_EaUkX
 
