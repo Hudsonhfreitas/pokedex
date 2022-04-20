@@ -6,13 +6,12 @@ import { Modal } from "./components/Modal";
 import { ModalProvider } from "./hooks/ModalContext";
 
 function App() {
-
   return (
     <ModalProvider>
       <Header />
       <Hero />
       <Main />
-      <Modal /> 
+      <Modal />
       <Footer />
     </ModalProvider>
   );

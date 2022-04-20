@@ -1,5 +1,6 @@
-import styled from "styled-components";
 import { lighten } from "polished";
+import styled from "styled-components";
+
 import { colors } from "../../styles/colors";
 import type { ColorsType } from "../../styles/colors";
 
@@ -19,5 +20,5 @@ export const Container = styled.span<TagTypeProps>`
   background-color: ${(props) => lighten(0.2, colors[props.color])};
   color: ${(props) => colors[props.color]};
   text-transform: capitalize;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 `;

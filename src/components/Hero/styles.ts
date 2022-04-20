@@ -1,14 +1,14 @@
-
 import styled from "styled-components";
-import redBg from '../../assets/bg-red.svg';
-import blueBg from '../../assets/bg-blue.svg';
 
+import blueBg from "../../assets/bg-blue.svg";
+import redBg from "../../assets/bg-red.svg";
 
 export const Container = styled.div`
   position: relative;
   width: 100%;
   height: 99.4rem;
-  .slide-hero, .swiper {
+  .slide-hero,
+  .swiper {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -37,7 +37,7 @@ export const Container = styled.div`
         position: absolute;
         bottom: 0;
         left: 0;
-        background-color: #EFF3F6;
+        background-color: #eff3f6;
         z-index: 0;
         pointer-events: none;
       }
@@ -56,17 +56,17 @@ export const Container = styled.div`
         }
         .text {
           h1 {
-            color: #EFF3F6;
+            color: #eff3f6;
             text-align: center;
-            margin-bottom: .8rem;
-            margin-top:  2.9rem;
+            margin-bottom: 0.8rem;
+            margin-top: 2.9rem;
           }
           > p {
             text-align: center;
             font-weight: 500;
             font-size: 1.8rem;
             line-height: 150%;
-            color: #FFF;
+            color: #fff;
           }
           .image {
             position: relative;
@@ -83,7 +83,7 @@ export const Container = styled.div`
             }
           }
         }
-      }  
+      }
     }
     .swiper-pagination {
       position: absolute;
@@ -95,7 +95,7 @@ export const Container = styled.div`
         background-color: rgba(255, 255, 255, 0.9);
       }
       .swiper-pagination-bullet-active {
-        background-color: #FFF;
+        background-color: #fff;
       }
     }
   }
@@ -166,39 +166,39 @@ export const Container = styled.div`
 `;
 
 export const Tag = styled.span`
-    width: 12.1rem;
-    height: 3.4rem;
-    padding: .4rem .6rem;
+  width: 12.1rem;
+  height: 3.4rem;
+  padding: 0.4rem 0.6rem;
+  display: flex;
+  align-items: center;
+  border-radius: 244px;
+  background-color: #fff;
+  margin: 0 auto;
+  .image-tag {
+    width: 2.6rem;
+    height: 2.6rem;
+    background-color: rgba(194, 0, 1, 0.2);
+    border-radius: 50%;
+    margin-right: 0.8rem;
     display: flex;
     align-items: center;
-    border-radius: 244px;
-    background-color: #FFF;
-    margin: 0 auto;
+    justify-content: center;
+  }
+  p {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 150%;
+    color: #c20001;
+  }
+  &.blue {
     .image-tag {
-        width: 2.6rem;
-        height: 2.6rem;
-        background-color: rgba(194, 0, 1, .2);
-        border-radius: 50%;
-        margin-right: .8rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      background-color: rgba(63, 103, 186, 0.2);
     }
     p {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 1.5rem;
-      line-height: 150%;
-      color: #C20001;
+      color: #3f67ba;
     }
-    &.blue {
-      .image-tag {
-        background-color: rgba(63, 103, 186, .2);
-      }
-      p {
-        color: #3F67BA;
-      }
-    }
+  }
 `;
 
 export const AreaExplore = styled.div`
@@ -220,30 +220,30 @@ export const AreaExplore = styled.div`
     .icon {
       width: 40px;
       height: 40px;
-      background-color: #C90C0C;
+      background-color: #c90c0c;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       svg {
         font-size: 2rem;
-        color: #FFF;
+        color: #fff;
         transform: rotate(90deg);
       }
       &.blue {
-        background-color: rgba(175, 192, 227, .3);
+        background-color: rgba(175, 192, 227, 0.3);
       }
     }
     span {
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
       font-weight: 500;
       font-size: 1.3rem;
       line-height: 150%;
-      color: #FFFFFF;
+      color: #ffffff;
       margin-left: 3rem;
     }
   }
   @media (max-width: 768px) {
     display: none;
   }
-`
+`;

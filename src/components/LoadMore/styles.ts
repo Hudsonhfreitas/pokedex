@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { colors } from "../../styles/colors";
 
 export const Container = styled.button`
@@ -9,10 +10,10 @@ export const Container = styled.button`
   font-weight: 600;
   font-size: 1.4rem;
   letter-spacing: -0.01em;
-  color: ${colors["all"]};
+  color: ${colors.all};
   transition: all 0.3s;
   &:hover {
-    background-color: ${colors["all"]};
+    background-color: ${colors.all};
     color: #fff;
   }
 `;

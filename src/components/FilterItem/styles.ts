@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { colors } from "../../styles/colors";
-import { ColorsType } from "../../styles/colors";
+
+import { colors, ColorsType } from "../../styles/colors";
 
 type FilterItemsParams = {
   filterColor: keyof ColorsType;
@@ -23,7 +23,8 @@ export const Container = styled.button<FilterItemsParams>`
     height: 16px;
   }
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     color: ${(props) => colors[props.filterColor]};
     filter: grayscale(0%);
   }

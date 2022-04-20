@@ -9,22 +9,28 @@ type SearchParams = {
   handleSearchPokemon: () => void;
 };
 
-export function Search({ value, setSearch, handleSearchPokemon}: SearchParams) {
+export function Search({
+  value,
+  setSearch,
+  handleSearchPokemon,
+}: SearchParams) {
   return (
     <S.Container>
       <input
         type="text"
         placeholder="Search name or code"
         value={value}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setSearch(e.target.value)
+        }
         onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-          if (e.key === 'Enter') {
-            handleSearchPokemon()
+          if (e.key === "Enter") {
+            handleSearchPokemon();
           }
         }}
       />
       <S.SearchIcon>
-        <GoSearch onClick={handleSearchPokemon}/>
+        <GoSearch onClick={handleSearchPokemon} />
       </S.SearchIcon>
     </S.Container>
   );

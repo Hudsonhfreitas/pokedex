@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { colors } from "../../styles/colors";
 
 export const Container = styled.div`
@@ -34,11 +35,11 @@ export const SearchIcon = styled.button`
   justify-content: center;
   transition: border 0.3s;
   &:hover {
-    border: 1px solid ${colors["all"]};
+    border: 1px solid ${colors.all};
   }
   svg {
     height: 2rem;
     width: 2rem;
-    color: ${colors["all"]};
+    color: ${colors.all};
   }
 `;

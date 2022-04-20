@@ -1,9 +1,10 @@
-import Arrow from '../../assets/arrow-down-select.svg';
 import styled from "styled-components";
 
+import Arrow from "../../assets/arrow-down-select.svg";
+
 type SelectMobileProps = {
-  isSelectOpen: boolean
-}
+  isSelectOpen: boolean;
+};
 
 export const Container = styled.div<SelectMobileProps>`
   position: relative;
@@ -13,7 +14,7 @@ export const Container = styled.div<SelectMobileProps>`
     cursor: pointer;
     width: 100%;
     height: 5.6rem;
-    border: 1px solid #A0AFBA;
+    border: 1px solid #a0afba;
     background: url(${Arrow}) no-repeat right 24px center;
     padding: 0 2rem;
     border-radius: 1rem;
@@ -35,15 +36,15 @@ export const Container = styled.div<SelectMobileProps>`
     position: absolute;
     width: 100%;
     height: 22.3rem;
-    border: 1px solid #A0AFBA;
-    background-color: #FFF;
+    border: 1px solid #a0afba;
+    background-color: #fff;
     border-top: 0;
     padding: 2.1rem;
     top: 5.6rem;
     z-index: 2;
     overflow-y: auto;
-    opacity: ${props => props.isSelectOpen ? 1 : 0 };
-    pointer-events: ${props => props.isSelectOpen ? 'all' : 'none' };
+    opacity: ${(props) => (props.isSelectOpen ? 1 : 0)};
+    pointer-events: ${(props) => (props.isSelectOpen ? "all" : "none")};
     transition: all 0.3s;
     &::-webkit-scrollbar-track {
       background-color: transparent;
@@ -56,19 +57,18 @@ export const Container = styled.div<SelectMobileProps>`
       background-color: #3d75c2;
       border-radius: 5px;
     }
-      li {
-        &:first-child {
-          button {
-            padding-top: 0;
-            
-          }
-        }
+    li {
+      &:first-child {
         button {
-          padding: 1.2rem 0;
+          padding-top: 0;
         }
       }
+      button {
+        padding: 1.2rem 0;
+      }
     }
-  @media(max-width: 560px) {
-      display: block;
   }
-`
+  @media (max-width: 560px) {
+    display: block;
+  }
+`;

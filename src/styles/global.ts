@@ -57,8 +57,8 @@ h2 {
 }
 
 h3 {
-    font-weight: 600;
-    font-size: 1.8rem;
+    font-weight: 600;    
+    font-size: 1.8rem;   
     line-height: 150%;
 }
 
