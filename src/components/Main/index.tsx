@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { listingPokemons } from '../../services/api';
 import { ColorsType } from '../../styles/colors';
 import IconPokeball from '../../assets/icon-pokeball.svg';
+import { types } from '../../utils/pokemonTypes';
 import * as S from './styles'
 
 type PokemonType = {
@@ -23,27 +24,6 @@ type PokemonInfo = {
     type: keyof ColorsType;
 };
 
-const types = [
-    'all', 
-    'ghost', 
-    'ground',                   
-    'grass',
-    'dragon',
-    'steel' ,
-    'electric',
-    'water',                           
-    'fire',                          
-    'bug',                        
-    'flying',                           
-    'fairy',                         
-    'normal',                           
-    'poison',                            
-    'rock',                        
-    'psychic',
-    'ice',                     
-    'dark',                        
-    'fight'
-]
 
 export function Main() {
 
@@ -51,25 +31,51 @@ export function Main() {
     const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
     const [currentTypeFilter, setCurrentTypeFilter] = useState('all');
     const [pokemonsData, setPokemonsData] = useState<PokemonInfo[]>([]);
+    const [search, setSearch] = useState('');
+    const [errors, setErrors] = useState('')
 
     function getPokemonsDetails(pokemons: Array<any>, type?: boolean) {
-
-        pokemons.map(async (pokemon: PokemonType) => {
-            const { name, id, sprites, types } = type ? await listingPokemons(pokemon.pokemon.url) : await listingPokemons(pokemon.url);
-            let info = {
-                id,
-                name,
-                image: sprites.other.dream_world.front_default,
-                type: types[0].type.name
-            }
-            setPokemonsData((oldArray: any) => [...oldArray, info]);
-        })
+        setErrors('')
+        try {
+            pokemons.map(async (pokemon: PokemonType) => {
+                const { name, id, sprites, types } = type ? await listingPokemons(pokemon.pokemon.url) : await listingPokemons(pokemon.url);
+                let info = {
+                    id,
+                    name,
+                    image: sprites.other.dream_world.front_default,
+                    type: types[0].type.name
+                }
+                setPokemonsData((oldArray: any) => [...oldArray, info]);
+            })
+        } catch(e) {
+            setErrors('Ops, tivemos um erro. Tente novamente!');
+            console.log(e)
+        }
+        
     }
 
     async function handleLoadMore(url: string) {
         const response = await listingPokemons(url);
         setPokemons(response)
         getPokemonsDetails(response.results, false)
+    }
+
+    async function handleSearchPokemon() {
+        setErrors('')
+        try {
+            const { name, id, sprites, types } = await listingPokemons(`https://pokeapi.co/api/v2/pokemon/${search}`)
+            let info = {
+                id,
+                name,
+                image: sprites.other.dream_world.front_default,
+                type: types[0].type.name
+            }
+            setPokemons({count: 1})
+            setPokemonsData([info])
+        } catch(e) {
+            setErrors('Pokémon não encontrado. Tente novamente!');
+            console.log(e)
+        }
     }
 
     useEffect(() => {
@@ -158,13 +164,17 @@ export function Main() {
             <div className="container">
                 <S.Top>
                     <h2>Select your Pokémon</h2>
-                    <Search value="" onChange={() => {}} />
+                    <Search 
+                      value={search} 
+                      setSearch={setSearch} 
+                      handleSearchPokemon={handleSearchPokemon}
+                    />
                 </S.Top>
 
                 <S.AreaAll>
                     <S.Aside>
                         <ul>
-                            {types.map((item) => (
+                            {types.map((item: string) => (
                                 <li key={item} >
                                     <FilterItem
                                       name={item} 
@@ -176,28 +186,39 @@ export function Main() {
                         </ul>                             
                     </S.Aside>
                     <S.RightContainer>
-                        <div className="top-container">
+                        {errors ? (
+                            <h3>{errors}</h3>
+                        ) : (
+                        <>
+                            <div className="top-container">
                             <div>
                                 <img src={IconPokeball} alt='red pokeball' />
                                 <span><strong>{pokemons && pokemons.count ? pokemons.count : ( pokemons && pokemons.pokemon ? pokemons.pokemon.length : '0')}</strong> Pokémons</span>
                             </div>
-                        </div>
-                        <SelectMobile isSelectOpen={isSelectMobileOpen} setIsSelectMobileOpen={setIsSelectMobileOpen}/>
-                        <S.AllPokemons>
-                            {pokemonsData && pokemonsData.map((pokemon: PokemonInfo) => (
-                                <CardPokemon 
-                                  key={pokemon.id + pokemon.name}
-                                  id={pokemon.id}
-                                  name={pokemon.name} 
-                                  pokemonType={pokemon.type} 
-                                  image={pokemon.image}
-                                />
-                            ))}
-                        </S.AllPokemons>
-                        <LoadMore 
-                          style={currentTypeFilter !== 'all' ? {display:'none'} : {display: 'block'}}
-                          onClick={() => handleLoadMore(pokemons.next)}
-                          />
+                            </div>
+                            <SelectMobile 
+                                currentType={currentTypeFilter}
+                                setCurrentTypeFilter={setCurrentTypeFilter}
+                                isSelectOpen={isSelectMobileOpen} 
+                                setIsSelectMobileOpen={setIsSelectMobileOpen}
+                            />
+                            <S.AllPokemons>
+                                {pokemonsData && pokemonsData.map((pokemon: PokemonInfo) => (
+                                    <CardPokemon 
+                                        key={pokemon.id}
+                                        id={pokemon.id}
+                                        name={pokemon.name} 
+                                        pokemonType={pokemon.type} 
+                                        image={pokemon.image}
+                                    />
+                                ))}
+                            </S.AllPokemons>
+                            <LoadMore 
+                                style={currentTypeFilter !== 'all' || (pokemons && pokemons.next ) ? {display:'none'} : {display: 'block'}}
+                                onClick={() => handleLoadMore(pokemons.next)}
+                            />
+                        </>
+                        )}
                     </S.RightContainer>
                 </S.AreaAll>
             </div>
