@@ -71,6 +71,7 @@ export function Main() {
 
     async function handleSearchPokemon() {
         setErrors('')
+        setCurrentTypeFilter('')
         try {
             const { name, id, sprites, types } = await listingPokemons(`https://pokeapi.co/api/v2/pokemon/${search}`)
             let info = {
@@ -110,7 +111,7 @@ export function Main() {
     }
 
     useEffect(() => {
-        let typeId = 0;
+        let typeId: number | null = 0;
         switch(currentTypeFilter) {
             case 'all':
                 typeId = 0;
@@ -168,7 +169,10 @@ export function Main() {
                 break; 
             case 'fairy':
                 typeId = 18;
-                break; 
+                break;
+            case '':
+                typeId = null;
+                break 
         }   
 
         async function getPokemons() {
@@ -178,12 +182,14 @@ export function Main() {
                 setPokemons(response)
                 getPokemonsDetails(response.results, false)
             }
-            else {
+            else if (typeId !== 0 && typeId !== null) {
                 const response = await listingPokemons(`https://pokeapi.co/api/v2/type/${typeId}`);
                 setPokemonsData([])
                 setPokemons(response)
                 getPokemonsDetails(response.pokemon, true)
             }
+
+            return
         }
 
         getPokemons();
