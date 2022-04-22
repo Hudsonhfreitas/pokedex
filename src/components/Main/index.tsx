@@ -13,7 +13,11 @@ import { SelectMobile } from "../SelectMobile";
 import * as S from "./styles";
 
 type PokemonType = {
-  pokemon?: any;
+  pokemon: PokemonResult;
+  url: string;
+};
+
+type PokemonResult = {
   name: string;
   url: string;
 };
@@ -22,34 +26,54 @@ type PokemonInfo = {
   id: number;
   name: string;
   image: string;
-  type: keyof ColorsType;
-};
-
-type InfoParams = {
-  id: number;
-  name: string;
-  image: string;
   type: string;
 };
 
+interface Pokemon {
+  count?: number;
+  next?: string;
+  results?: PokemonResult[];
+  pokemon?: PokemonResult[];
+}
+
+interface Name {
+  name: string;
+}
+
+interface Type {
+  type: Name;
+}
+
+interface Ability {
+  ability: Name;
+}
+
+interface Stats {
+  stat: Name;
+  base_stat: number;
+}
+
 export function Main() {
-  const [pokemons, setPokemons] = useState<any>();
+  const [pokemons, setPokemons] = useState<Pokemon>();
   const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
   const [currentTypeFilter, setCurrentTypeFilter] = useState("all");
   const [pokemonsData, setPokemonsData] = useState<PokemonInfo[]>([]);
+  const [nextPageUrl, setNextPageUrl] = useState("");
   const [search, setSearch] = useState("");
   const [errors, setErrors] = useState("");
 
+  console.log({ currentTypeFilter, nextPageUrl });
+
   const { setModalIsOpen, setPokemonModalDetails } = useModal();
 
-  function getPokemonsDetails(pokemons: Array<any>, type?: boolean) {
+  function getPokemonsDetails(pokemons: Array<PokemonType>, type?: boolean) {
     setErrors("");
     try {
       pokemons.map(async (pokemon: PokemonType) => {
         const { name, id, sprites, types } = type
           ? await listingPokemons(pokemon.pokemon.url)
           : await listingPokemons(pokemon.url);
-        const info: InfoParams = {
+        const info: PokemonInfo = {
           id,
           name,
           image:
@@ -58,7 +82,9 @@ export function Main() {
               : sprites.front_default,
           type: types[0].type.name,
         };
-        setPokemonsData((oldArray: any) => [...oldArray, info]);
+        setPokemonsData((prevstate) =>
+          prevstate ? [...prevstate, info] : [info]
+        );
       });
     } catch (e) {
       setErrors("Ops, tivemos um erro. Tente novamente!");
@@ -69,6 +95,7 @@ export function Main() {
   async function handleLoadMore(url: string) {
     const response = await listingPokemons(url);
     setPokemons(response);
+    setNextPageUrl(response.next);
     getPokemonsDetails(response.results, false);
   }
 
@@ -108,14 +135,14 @@ export function Main() {
         sprites.other.dream_world.front_default !== null
           ? sprites.other.dream_world.front_default
           : sprites.front_default,
-      types: types.map((item: any) => item.type.name),
-      abilities: abilities.map((ability: any) => ability.ability.name),
+      types: types.map((item: Type) => item.type.name),
+      abilities: abilities.map((ability: Ability) => ability.ability.name),
       height,
       weight,
       weaknesses: damage_relations.double_damage_from.map(
-        (item: any) => item.name
+        (item: Name) => item.name
       ),
-      stats: stats.map((item: any) => ({
+      stats: stats.map((item: Stats) => ({
         name: item.stat.name,
         value: item.base_stat,
       })),
@@ -198,6 +225,7 @@ export function Main() {
         );
         setPokemonsData([]);
         setPokemons(response);
+        setNextPageUrl(response.next);
         getPokemonsDetails(response.results, false);
       } else if (typeId !== 0 && typeId !== null) {
         const response = await listingPokemons(
@@ -205,6 +233,7 @@ export function Main() {
         );
         setPokemonsData([]);
         setPokemons(response);
+        setNextPageUrl(response.next);
         getPokemonsDetails(response.pokemon, true);
       }
     }
@@ -275,20 +304,15 @@ export function Main() {
                         key={pokemon.id}
                         pokemonId={pokemon.id}
                         name={pokemon.name}
-                        pokemonType={pokemon.type}
+                        pokemonType={pokemon.type as keyof ColorsType}
                         image={pokemon.image}
                         onClick={() => handleShowDetails(pokemon.id)}
                       />
                     ))}
                 </S.AllPokemons>
-                <LoadMore
-                  style={
-                    currentTypeFilter !== "all" || (pokemons && !pokemons.next)
-                      ? { display: "none" }
-                      : { display: "block" }
-                  }
-                  onClick={() => handleLoadMore(pokemons.next)}
-                />
+                {currentTypeFilter === "all" && (
+                  <LoadMore onClick={() => handleLoadMore(nextPageUrl)} />
+                )}
               </>
             )}
           </S.RightContainer>
