@@ -103,7 +103,7 @@ export function Modal() {
                 <div className="all-stats">
                   {stats &&
                     stats.map((item) => (
-                      <S.StatsItem>
+                      <S.StatsItem key={item.name}>
                         <span>
                           {item.name.includes("special-")
                             ? item.name.replace("special-", "sp. ")

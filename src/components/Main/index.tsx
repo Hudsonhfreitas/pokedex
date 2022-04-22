@@ -62,8 +62,6 @@ export function Main() {
   const [search, setSearch] = useState("");
   const [errors, setErrors] = useState("");
 
-  console.log({ currentTypeFilter, nextPageUrl });
-
   const { setModalIsOpen, setPokemonModalDetails } = useModal();
 
   function getPokemonsDetails(pokemons: Array<PokemonType>, type?: boolean) {

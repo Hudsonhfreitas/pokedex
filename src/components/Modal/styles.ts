@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+import { Key } from "react";
 import styled from "styled-components";
 
 type LeftContainerProps = {
@@ -11,6 +12,10 @@ type ModalProps = {
 
 type BarStatusProps = {
   percentage: number;
+};
+
+type StatsItemProps = {
+  key: Key;
 };
 
 export const Container = styled.div<ModalProps>`
@@ -277,7 +282,7 @@ export const Stats = styled.div`
   }
 `;
 
-export const StatsItem = styled.div`
+export const StatsItem = styled.div<StatsItemProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;

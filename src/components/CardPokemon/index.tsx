@@ -1,3 +1,6 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 import { ButtonHTMLAttributes } from "react";
 
 import { ColorsType } from "../../styles/colors";
@@ -18,6 +21,7 @@ export function CardPokemon({
   ...props
 }: CardPokemonParams) {
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <S.Container {...props}>
       <S.ImgContainer pokemonType={pokemonType}>
         <img src={image} alt="" />
