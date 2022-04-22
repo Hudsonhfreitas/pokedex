@@ -21,7 +21,7 @@ export function Search({
         placeholder="Search name or code"
         value={value}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setSearch(e.target.value)
+          setSearch(e.target.value.toLowerCase())
         }
         onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
           if (e.key === "Enter") {
