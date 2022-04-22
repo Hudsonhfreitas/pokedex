@@ -17,5 +17,5 @@ export const types = [
   "psychic",
   "ice",
   "dark",
-  "fight",
+  "fighting",
 ];
