@@ -28,7 +28,6 @@
     "rules": {
     "camelcase": "off",
     "import/no-unresolved": "error",
-    "endOfLine": "auto",
     "@typescript-eslint/naming-convention": [
     "error",
     {
@@ -37,7 +36,7 @@
     "PascalCase"
     ],
     "custom": {
-    "regex": "^I[A-Z]",
+    "regex": "([A-Z]\\w*_?[A-Z]\\w+)|([A-Z]\\w*[A-Z]?\\w+)",
     "match": true
     }
     }
@@ -84,7 +83,9 @@
     ]
     }
     ],
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", {
+        "endOfLine": "auto"
+    }],
     "react/jsx-filename-extension": [
     1,
     {

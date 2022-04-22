@@ -1,3 +1,6 @@
+/* eslint-disable global-require */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/require-default-props */
 import { ButtonHTMLAttributes } from "react";
 
 import { ColorsType } from "../../styles/colors";
@@ -15,7 +18,11 @@ export function FilterItem({ name, currentType, ...props }: AsideButton) {
       className={currentType === name ? "active" : ""}
       {...props}
     >
-      <img src={require(`../../assets/filter_icons/${name}.svg`)} alt={name} />
+      <img
+        // eslint-disable-next-line import/no-dynamic-require
+        src={require(`../../assets/filter_icons/${name}.svg`)}
+        alt={name}
+      />
       {name}
     </S.Container>
   );

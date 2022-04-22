@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import { Dispatch, SetStateAction } from "react";
 
 import { types } from "../../utils/pokemonTypes";
@@ -30,8 +31,12 @@ export function SelectMobile({
       </button>
       <ul>
         {types.map((type) => (
-          <li key={type} onClick={() => handleFilter(type)}>
-            <FilterItem name={type} currentType={currentType} />
+          <li key={type}>
+            <FilterItem
+              onClick={() => handleFilter(type)}
+              name={type}
+              currentType={currentType}
+            />
           </li>
         ))}
       </ul>

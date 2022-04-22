@@ -47,6 +47,7 @@ export function ModalProvider({ children }: ModalProviderParams) {
 
   return (
     <ModalContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         modalIsOpen,
         setModalIsOpen,

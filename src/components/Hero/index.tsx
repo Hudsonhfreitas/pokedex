@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { HiArrowNarrowDown } from "react-icons/hi";
 import { Autoplay, Pagination, EffectFade } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";

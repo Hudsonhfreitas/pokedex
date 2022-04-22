@@ -187,6 +187,8 @@ export function Main() {
       case "":
         typeId = null;
         break;
+      default:
+        typeId = null;
     }
 
     async function getPokemons() {
@@ -218,6 +220,7 @@ export function Main() {
           <Search
             value={search}
             setSearch={setSearch}
+            // eslint-disable-next-line react/jsx-no-bind
             handleSearchPokemon={handleSearchPokemon}
           />
         </S.Top>
@@ -246,11 +249,14 @@ export function Main() {
                     <img src={IconPokeball} alt="red pokeball" />
                     <span>
                       <strong>
-                        {pokemons && pokemons.count
-                          ? pokemons.count
-                          : pokemons && pokemons.pokemon
-                          ? pokemons.pokemon.length
-                          : "0"}
+                        {
+                          // eslint-disable-next-line no-nested-ternary
+                          pokemons && pokemons.count
+                            ? pokemons.count
+                            : pokemons && pokemons.pokemon
+                            ? pokemons.pokemon.length
+                            : "0"
+                        }
                       </strong>{" "}
                       Pokémons
                     </span>

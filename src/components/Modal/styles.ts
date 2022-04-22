@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import styled from "styled-components";
 
 type LeftContainerProps = {
@@ -88,6 +89,7 @@ export const LeftContainer = styled.div<LeftContainerProps>`
   height: 100%;
   max-width: 19.1rem;
   background-image: ${(props) =>
+    // eslint-disable-next-line import/no-dynamic-require
     `url(${require(`../../assets/modal_bg/${props.type}_bg.svg`)})`};
   background-repeat: no-repeat;
   background-position: center center;
