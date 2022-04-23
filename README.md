@@ -67,7 +67,7 @@ Seguintes pessoas contribuíram para este projeto:
   </tr>
 </table>
 
-[⬆ Voltar ao topo](#pokedéx)<br>
+[⬆ Voltar ao topo](#pokedex)<br>
 
 ![pokemon](https://user-images.githubusercontent.com/65768361/164321775-bdf8ef47-bd49-4f22-8a4f-02bf44a35559.png)
 ```
