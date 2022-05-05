@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import { Dispatch, SetStateAction } from "react";
 
 import { types } from "../../utils/pokemonTypes";
@@ -25,7 +24,10 @@ export function SelectMobile({
 
   return (
     <S.Container isSelectOpen={isSelectOpen}>
-      <button onClick={() => setIsSelectMobileOpen(!isSelectOpen)}>
+      <button
+        type="button"
+        onClick={() => setIsSelectMobileOpen(!isSelectOpen)}
+      >
         <span>Show</span>
         <strong>All</strong>
       </button>

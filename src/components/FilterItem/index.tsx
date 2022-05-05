@@ -1,6 +1,3 @@
-/* eslint-disable global-require */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/require-default-props */
 import { ButtonHTMLAttributes } from "react";
 
 import { ColorsType } from "../../styles/colors";

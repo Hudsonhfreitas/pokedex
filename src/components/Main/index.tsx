@@ -3,7 +3,14 @@ import { useEffect, useState } from "react";
 import IconPokeball from "../../assets/icon-pokeball.svg";
 import { listingPokemons } from "../../services/api";
 import { ColorsType } from "../../styles/colors";
-import { PokemonDetails, PokemonResult } from "../../types/types";
+import {
+  Ability,
+  BaseStatus,
+  Name,
+  PokemonDetails,
+  Type,
+  PokemonInfo,
+} from "../../types/types";
 import { getPokemonsDetails } from "../../utils/getPokemonDetails";
 import { getPokemonType } from "../../utils/getPokemonType";
 import { types } from "../../utils/pokemonTypes";
@@ -19,37 +26,6 @@ interface PokemonsData {
   count: number;
   next: string;
   pokemons: Array<PokemonInfo>;
-}
-
-type PokemonInfo = {
-  id: number;
-  name: string;
-  image: string;
-  type: string;
-};
-
-interface Pokemon {
-  count?: number;
-  next?: string;
-  results?: PokemonResult[];
-  pokemon?: PokemonResult[];
-}
-
-interface Name {
-  name: string;
-}
-
-interface Type {
-  type: Name;
-}
-
-interface Ability {
-  ability: Name;
-}
-
-interface Stats {
-  stat: Name;
-  base_stat: number;
 }
 
 export function Main() {
@@ -129,7 +105,7 @@ export function Main() {
       weaknesses: damage_relations.double_damage_from.map(
         (item: Name) => item.name
       ),
-      stats: stats.map((item: Stats) => ({
+      stats: stats.map((item: BaseStatus) => ({
         name: item.stat.name,
         value: item.base_stat,
       })),
@@ -174,7 +150,6 @@ export function Main() {
           <Search
             value={search}
             setSearch={setSearch}
-            // eslint-disable-next-line react/jsx-no-bind
             handleSearchPokemon={handleSearchPokemon}
           />
         </S.Top>
@@ -203,13 +178,10 @@ export function Main() {
                     <img src={IconPokeball} alt="red pokeball" />
                     <span>
                       <strong>
-                        {
-                          // eslint-disable-next-line no-nested-ternary
-                          pokemonsData && pokemonsData.count
-                            ? pokemonsData.count
-                            : "0"
-                        }
-                      </strong>{" "}
+                        {pokemonsData && pokemonsData.count
+                          ? pokemonsData.count
+                          : "0"}
+                      </strong>
                       Pokémons
                     </span>
                   </div>

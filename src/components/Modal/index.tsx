@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-/* eslint-disable react/jsx-no-bind */
 import { MdOutlineClose } from "react-icons/md";
 
 import { ColorsType } from "../../styles/colors";
@@ -35,7 +33,6 @@ export function Modal({
   }
 
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {types ? (
         <S.Container isVisible={isModalOpen}>
@@ -48,7 +45,6 @@ export function Modal({
             <S.LeftContainer type={types.length > 0 ? types[0] : "grass"}>
               <S.Icon>
                 <img
-                  // eslint-disable-next-line import/no-dynamic-require
                   src={require(`../../assets/filter_icons/${types[0]}.svg`)}
                   alt={types[0]}
                 />
@@ -62,10 +58,7 @@ export function Modal({
               <div className="name">
                 <h2>{name}</h2>
                 <span>
-                  {
-                    // eslint-disable-next-line no-nested-ternary
-                    id && id < 10 ? `#00${id}` : id < 100 ? `#0${id}` : `#${id}`
-                  }
+                  {id && id < 10 ? `#00${id}` : id < 100 ? `#0${id}` : `#${id}`}
                 </span>
               </div>
               <S.TypeList>

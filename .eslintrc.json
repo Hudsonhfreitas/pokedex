@@ -29,6 +29,13 @@
     "camelcase": "off",
     "import/no-unresolved": "error",
     "func-names": "off",
+    "react/jsx-no-bind": "off",
+    "global-require": "off",
+    "no-nested-ternary": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/no-dynamic-require": "off",
+    "react/require-default-props": "off",
+    "react/jsx-no-useless-fragment": "off",
     "@typescript-eslint/naming-convention": [
     "error",
     {
