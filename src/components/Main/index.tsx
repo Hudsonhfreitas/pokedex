@@ -124,20 +124,25 @@ export function Main() {
           ? `https://pokeapi.co/api/v2/type/${typeId}`
           : "https://pokeapi.co/api/v2/pokemon?limit=9&offset=0";
 
-      const response = await listingPokemons(url);
+      try {
+        const response = await listingPokemons(url);
 
-      if (typeId !== 0) {
-        setPokemonsData(null);
-        pokemons = await getPokemonsDetails(response.pokemon, true);
-      } else {
-        pokemons = await getPokemonsDetails(response.results, false);
+        if (typeId !== 0) {
+          setPokemonsData(null);
+          pokemons = await getPokemonsDetails(response.pokemon, true);
+        } else {
+          pokemons = await getPokemonsDetails(response.results, false);
+        }
+
+        setPokemonsData({
+          count: typeId === 0 ? response.count : response.pokemon.length,
+          next: response.next,
+          pokemons,
+        });
+      } catch (e) {
+        setErrors("Não foi possivel carregar os pokémons, tente novamente!");
+        console.log(e);
       }
-
-      setPokemonsData({
-        count: typeId === 0 ? response.count : response.pokemon.length,
-        next: response.next,
-        pokemons,
-      });
     }
     getPokemons();
   }, [currentTypeFilter]);
