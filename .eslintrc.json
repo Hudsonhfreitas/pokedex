@@ -28,6 +28,7 @@
     "rules": {
     "camelcase": "off",
     "import/no-unresolved": "error",
+    "func-names": "off",
     "@typescript-eslint/naming-convention": [
     "error",
     {

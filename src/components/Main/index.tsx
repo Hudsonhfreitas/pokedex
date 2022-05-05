@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 
 import IconPokeball from "../../assets/icon-pokeball.svg";
-import { useModal } from "../../hooks/ModalContext";
 import { listingPokemons } from "../../services/api";
 import { ColorsType } from "../../styles/colors";
+import { PokemonDetails, PokemonResult } from "../../types/types";
+import { getPokemonsDetails } from "../../utils/getPokemonDetails";
+import { getPokemonType } from "../../utils/getPokemonType";
 import { types } from "../../utils/pokemonTypes";
 import { CardPokemon } from "../CardPokemon";
 import { FilterItem } from "../FilterItem";
 import { LoadMore } from "../LoadMore";
+import { Modal } from "../Modal";
 import { Search } from "../Search";
 import { SelectMobile } from "../SelectMobile";
 import * as S from "./styles";
 
-type PokemonType = {
-  pokemon: PokemonResult;
-  url: string;
-};
-
-type PokemonResult = {
-  name: string;
-  url: string;
-};
+interface PokemonsData {
+  count: number;
+  next: string;
+  pokemons: Array<PokemonInfo>;
+}
 
 type PokemonInfo = {
   id: number;
@@ -54,47 +53,34 @@ interface Stats {
 }
 
 export function Main() {
-  const [pokemons, setPokemons] = useState<Pokemon>();
   const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
   const [currentTypeFilter, setCurrentTypeFilter] = useState("all");
-  const [pokemonsData, setPokemonsData] = useState<PokemonInfo[]>([]);
-  const [nextPageUrl, setNextPageUrl] = useState("");
+  const [pokemonsData, setPokemonsData] = useState<PokemonsData | null>();
   const [search, setSearch] = useState("");
   const [errors, setErrors] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pokemonModalData, setPokemonModalData] = useState(
+    {} as PokemonDetails
+  );
 
-  const { setModalIsOpen, setPokemonModalDetails } = useModal();
-
-  function getPokemonsDetails(pokemons: Array<PokemonType>, type?: boolean) {
-    setErrors("");
-    try {
-      pokemons.map(async (pokemon: PokemonType) => {
-        const { name, id, sprites, types } = type
-          ? await listingPokemons(pokemon.pokemon.url)
-          : await listingPokemons(pokemon.url);
-        const info: PokemonInfo = {
-          id,
-          name,
-          image:
-            sprites.other.dream_world.front_default !== null
-              ? sprites.other.dream_world.front_default
-              : sprites.front_default,
-          type: types[0].type.name,
-        };
-        setPokemonsData((prevstate) =>
-          prevstate ? [...prevstate, info] : [info]
-        );
-      });
-    } catch (e) {
-      setErrors("Ops, tivemos um erro. Tente novamente!");
-      console.log(e);
+  async function handleLoadMore() {
+    if (pokemonsData && pokemonsData.next) {
+      const response = await listingPokemons(pokemonsData.next);
+      const results = await getPokemonsDetails(response.results, false);
+      setPokemonsData((prev) =>
+        prev
+          ? {
+              ...prev,
+              next: response.next,
+              pokemons: [...prev.pokemons, ...results],
+            }
+          : {
+              count: response.count,
+              next: response.next,
+              pokemons: results,
+            }
+      );
     }
-  }
-
-  async function handleLoadMore(url: string) {
-    const response = await listingPokemons(url);
-    setPokemons(response);
-    setNextPageUrl(response.next);
-    getPokemonsDetails(response.results, false);
   }
 
   async function handleSearchPokemon() {
@@ -113,8 +99,11 @@ export function Main() {
             : sprites.front_default,
         type: types[0].type.name,
       };
-      setPokemons({ count: 1 });
-      setPokemonsData([info]);
+      setPokemonsData({
+        count: 1,
+        next: "",
+        pokemons: [info],
+      });
     } catch (e) {
       setErrors("Pokémon não encontrado. Tente novamente!");
       console.log(e);
@@ -145,97 +134,35 @@ export function Main() {
         value: item.base_stat,
       })),
     };
-    setPokemonModalDetails(details);
-    setModalIsOpen(true);
+    setPokemonModalData(details);
+    setIsModalOpen(true);
   }
 
   useEffect(() => {
-    let typeId: number | null = 0;
-    switch (currentTypeFilter) {
-      case "all":
-        typeId = 0;
-        break;
-      case "normal":
-        typeId = 1;
-        break;
-      case "fighting":
-        typeId = 2;
-        break;
-      case "flying":
-        typeId = 3;
-        break;
-      case "poison":
-        typeId = 4;
-        break;
-      case "ground":
-        typeId = 5;
-        break;
-      case "rock":
-        typeId = 6;
-        break;
-      case "bug":
-        typeId = 7;
-        break;
-      case "ghost":
-        typeId = 8;
-        break;
-      case "steel":
-        typeId = 9;
-        break;
-      case "fire":
-        typeId = 10;
-        break;
-      case "water":
-        typeId = 11;
-        break;
-      case "grass":
-        typeId = 12;
-        break;
-      case "electric":
-        typeId = 13;
-        break;
-      case "psychic":
-        typeId = 14;
-        break;
-      case "ice":
-        typeId = 15;
-        break;
-      case "dragon":
-        typeId = 16;
-        break;
-      case "dark":
-        typeId = 17;
-        break;
-      case "fairy":
-        typeId = 18;
-        break;
-      case "":
-        typeId = null;
-        break;
-      default:
-        typeId = null;
-    }
+    const typeId = getPokemonType(currentTypeFilter);
 
     async function getPokemons() {
-      if (typeId === 0) {
-        const response = await listingPokemons(
-          "https://pokeapi.co/api/v2/pokemon?limit=9&offset=0"
-        );
-        setPokemonsData([]);
-        setPokemons(response);
-        setNextPageUrl(response.next);
-        getPokemonsDetails(response.results, false);
-      } else if (typeId !== 0 && typeId !== null) {
-        const response = await listingPokemons(
-          `https://pokeapi.co/api/v2/type/${typeId}`
-        );
-        setPokemonsData([]);
-        setPokemons(response);
-        setNextPageUrl(response.next);
-        getPokemonsDetails(response.pokemon, true);
-      }
-    }
+      let pokemons = null;
+      const url =
+        typeId && typeId !== 0
+          ? `https://pokeapi.co/api/v2/type/${typeId}`
+          : "https://pokeapi.co/api/v2/pokemon?limit=9&offset=0";
 
+      const response = await listingPokemons(url);
+
+      if (typeId !== 0) {
+        setPokemonsData(null);
+        pokemons = await getPokemonsDetails(response.pokemon, true);
+      } else {
+        pokemons = await getPokemonsDetails(response.results, false);
+      }
+
+      setPokemonsData({
+        count: typeId === 0 ? response.count : response.pokemon.length,
+        next: response.next,
+        pokemons,
+      });
+    }
     getPokemons();
   }, [currentTypeFilter]);
 
@@ -278,10 +205,8 @@ export function Main() {
                       <strong>
                         {
                           // eslint-disable-next-line no-nested-ternary
-                          pokemons && pokemons.count
-                            ? pokemons.count
-                            : pokemons && pokemons.pokemon
-                            ? pokemons.pokemon.length
+                          pokemonsData && pokemonsData.count
+                            ? pokemonsData.count
                             : "0"
                         }
                       </strong>{" "}
@@ -297,7 +222,7 @@ export function Main() {
                 />
                 <S.AllPokemons>
                   {pokemonsData &&
-                    pokemonsData.map((pokemon: PokemonInfo) => (
+                    pokemonsData.pokemons.map((pokemon: PokemonInfo) => (
                       <CardPokemon
                         key={pokemon.id}
                         pokemonId={pokemon.id}
@@ -309,13 +234,18 @@ export function Main() {
                     ))}
                 </S.AllPokemons>
                 {currentTypeFilter === "all" && (
-                  <LoadMore onClick={() => handleLoadMore(nextPageUrl)} />
+                  <LoadMore onClick={() => handleLoadMore()} />
                 )}
               </>
             )}
           </S.RightContainer>
         </S.AreaAll>
       </div>
+      <Modal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        pokemonModalData={pokemonModalData}
+      />
     </S.Container>
   );
 }

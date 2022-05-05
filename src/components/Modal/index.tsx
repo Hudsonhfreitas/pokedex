@@ -2,13 +2,22 @@
 /* eslint-disable react/jsx-no-bind */
 import { MdOutlineClose } from "react-icons/md";
 
-import { useModal } from "../../hooks/ModalContext";
 import { ColorsType } from "../../styles/colors";
+import { PokemonDetails } from "../../types/types";
 import { TagType } from "../TagType";
 import * as S from "./styles";
 
-export function Modal() {
-  const { setModalIsOpen, modalIsOpen, pokemonModalDetails } = useModal();
+interface ModalProps {
+  isModalOpen: boolean;
+  setIsModalOpen: (data: boolean) => void;
+  pokemonModalData: PokemonDetails;
+}
+
+export function Modal({
+  isModalOpen,
+  setIsModalOpen,
+  pokemonModalData,
+}: ModalProps) {
   const {
     id,
     image,
@@ -19,19 +28,19 @@ export function Modal() {
     weight,
     weaknesses,
     stats,
-  } = pokemonModalDetails;
+  } = pokemonModalData;
 
   function handleCloseModal() {
-    setModalIsOpen(false);
+    setIsModalOpen(false);
   }
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {types ? (
-        <S.Container isVisible={modalIsOpen}>
+        <S.Container isVisible={isModalOpen}>
           <div className="overlay" />
-          <S.Box isVisible={modalIsOpen}>
+          <S.Box isVisible={isModalOpen}>
             <S.CloseModal onClick={handleCloseModal}>
               <MdOutlineClose />
             </S.CloseModal>
