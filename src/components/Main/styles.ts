@@ -122,6 +122,10 @@ export const AllPokemons = styled.div`
   @media (max-width: 1200px) {
     grid-gap: 2rem;
   }
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2.5rem;
+  }
   @media (max-width: 560px) {
     grid-template-columns: 1fr;
     gap: 1.6rem;
