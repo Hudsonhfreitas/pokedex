@@ -58,7 +58,7 @@ export const Aside = styled.aside`
   width: 100%;
   max-width: 32.9rem;
   border-right: 1px solid #eff3f6;
-  padding-top: 7.1rem;
+  padding: 7.1rem 0;
   ul {
     li {
       &:not(:last-child) {
