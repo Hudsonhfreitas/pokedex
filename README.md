@@ -1,5 +1,9 @@
-Pokedéx uma aplicação feita com React, TypeScript, Styled-components; Para o consumo da API Pokeapi foi utilizado Axios.
+<h1>Projeto Pokedéx</h1
 
+Pokedéx uma aplicação onde é possivel buscar pokémons e conferir todas as suas informações. 
+O projeto foi construído utilizando a api [PokéAPI](https://pokeapi.co/).
+  
+  
 ## Aplicação: https://lnkd.in/d7_EaUkX
 
 ## 🔗 Api consumida
