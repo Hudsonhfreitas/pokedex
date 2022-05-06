@@ -45,18 +45,13 @@ export function Main() {
     if (pokemonsData && pokemonsData.next) {
       const response = await listingPokemons(pokemonsData.next);
       const results = await getPokemonsDetails(response.results, false);
-      setPokemonsData((prev) =>
-        prev
-          ? {
-              ...prev,
-              next: response.next,
-              pokemons: [...prev.pokemons, ...results],
-            }
-          : {
-              count: response.count,
-              next: response.next,
-              pokemons: results,
-            }
+      setPokemonsData(
+        (prev) =>
+          prev && {
+            ...prev,
+            next: response.next,
+            pokemons: [...prev.pokemons, ...results],
+          }
       );
     }
   }
