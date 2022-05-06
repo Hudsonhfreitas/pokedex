@@ -20,7 +20,7 @@ export function CardPokemon({
   return (
     <S.Container {...props}>
       <S.ImgContainer pokemonType={pokemonType}>
-        <img src={image} alt="" />
+        <img loading="lazy" src={image} alt={name} />
       </S.ImgContainer>
       <S.Info>
         <div className="text">

@@ -42,6 +42,7 @@ export function Main() {
   );
 
   async function handleLoadMore() {
+    setIsLoading(true);
     if (pokemonsData && pokemonsData.next) {
       const response = await listingPokemons(pokemonsData.next);
       const results = await getPokemonsDetails(response.results, false);
@@ -54,6 +55,7 @@ export function Main() {
           }
       );
     }
+    setIsLoading(false);
   }
 
   async function handleSearchPokemon() {
