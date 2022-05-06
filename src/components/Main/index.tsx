@@ -16,6 +16,7 @@ import { getPokemonType } from "../../utils/getPokemonType";
 import { types } from "../../utils/pokemonTypes";
 import { CardPokemon } from "../CardPokemon";
 import { FilterItem } from "../FilterItem";
+import { Loader } from "../Loader";
 import { LoadMore } from "../LoadMore";
 import { Modal } from "../Modal";
 import { Search } from "../Search";
@@ -34,6 +35,7 @@ export function Main() {
   const [pokemonsData, setPokemonsData] = useState<PokemonsData | null>();
   const [search, setSearch] = useState("");
   const [errors, setErrors] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pokemonModalData, setPokemonModalData] = useState(
     {} as PokemonDetails
@@ -115,6 +117,11 @@ export function Main() {
   }
 
   useEffect(() => {
+    if (currentTypeFilter === "") {
+      return;
+    }
+    setIsLoading(true);
+
     const typeId = getPokemonType(currentTypeFilter);
 
     async function getPokemons() {
@@ -143,6 +150,8 @@ export function Main() {
         setErrors("Não foi possivel carregar os pokémons, tente novamente!");
         console.log(e);
       }
+
+      setIsLoading(false);
     }
     getPokemons();
   }, [currentTypeFilter]);
@@ -178,40 +187,48 @@ export function Main() {
               <h3>{errors}</h3>
             ) : (
               <>
-                <div className="top-container">
-                  <div>
-                    <img src={IconPokeball} alt="red pokeball" />
-                    <span>
-                      <strong>
-                        {pokemonsData && pokemonsData.count
-                          ? pokemonsData.count
-                          : "0"}
-                      </strong>
-                      Pokémons
-                    </span>
-                  </div>
-                </div>
-                <SelectMobile
-                  currentType={currentTypeFilter}
-                  setCurrentTypeFilter={setCurrentTypeFilter}
-                  isSelectOpen={isSelectMobileOpen}
-                  setIsSelectMobileOpen={setIsSelectMobileOpen}
-                />
-                <S.AllPokemons>
-                  {pokemonsData &&
-                    pokemonsData.pokemons.map((pokemon: PokemonInfo) => (
-                      <CardPokemon
-                        key={pokemon.id}
-                        pokemonId={pokemon.id}
-                        name={pokemon.name}
-                        pokemonType={pokemon.type as keyof ColorsType}
-                        image={pokemon.image}
-                        onClick={() => handleShowDetails(pokemon.id)}
-                      />
-                    ))}
-                </S.AllPokemons>
-                {currentTypeFilter === "all" && (
-                  <LoadMore onClick={() => handleLoadMore()} />
+                {isLoading ? (
+                  <Loader />
+                ) : (
+                  <>
+                    <div className="top-container">
+                      <div>
+                        <img src={IconPokeball} alt="red pokeball" />
+                        <span>
+                          <strong>
+                            {pokemonsData && pokemonsData.count
+                              ? pokemonsData.count
+                              : "0"}
+                          </strong>
+                          {pokemonsData && pokemonsData.count > 1
+                            ? " Pokémons"
+                            : " Pokémon"}
+                        </span>
+                      </div>
+                    </div>
+                    <SelectMobile
+                      currentType={currentTypeFilter}
+                      setCurrentTypeFilter={setCurrentTypeFilter}
+                      isSelectOpen={isSelectMobileOpen}
+                      setIsSelectMobileOpen={setIsSelectMobileOpen}
+                    />
+                    <S.AllPokemons>
+                      {pokemonsData &&
+                        pokemonsData.pokemons.map((pokemon: PokemonInfo) => (
+                          <CardPokemon
+                            key={pokemon.id}
+                            pokemonId={pokemon.id}
+                            name={pokemon.name}
+                            pokemonType={pokemon.type as keyof ColorsType}
+                            image={pokemon.image}
+                            onClick={() => handleShowDetails(pokemon.id)}
+                          />
+                        ))}
+                    </S.AllPokemons>
+                    {currentTypeFilter === "all" && (
+                      <LoadMore onClick={() => handleLoadMore()} />
+                    )}
+                  </>
                 )}
               </>
             )}

@@ -80,6 +80,8 @@ export const RightContainer = styled.div`
   padding-top: 7.1rem;
   padding-left: 7.5rem;
   padding-bottom: 7.5rem;
+  display: flex;
+  flex-direction: column;
   .top-container {
     & > div {
       display: flex;
