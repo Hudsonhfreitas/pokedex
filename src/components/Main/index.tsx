@@ -36,13 +36,14 @@ export function Main() {
   const [search, setSearch] = useState("");
   const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pokemonModalData, setPokemonModalData] = useState(
     {} as PokemonDetails
   );
 
   async function handleLoadMore() {
-    setIsLoading(true);
+    setIsLoadingMore(true);
     if (pokemonsData && pokemonsData.next) {
       const response = await listingPokemons(pokemonsData.next);
       const results = await getPokemonsDetails(response.results, false);
@@ -55,7 +56,7 @@ export function Main() {
           }
       );
     }
-    setIsLoading(false);
+    setIsLoadingMore(false);
   }
 
   async function handleSearchPokemon() {
@@ -223,7 +224,9 @@ export function Main() {
                         ))}
                     </S.AllPokemons>
                     {currentTypeFilter === "all" && (
-                      <LoadMore onClick={() => handleLoadMore()} />
+                      <LoadMore onClick={() => handleLoadMore()}>
+                        {isLoadingMore ? "Loading..." : "Load more Pokémons"}
+                      </LoadMore>
                     )}
                   </>
                 )}

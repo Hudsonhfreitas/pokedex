@@ -1,9 +1,11 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
 import * as S from "./styles";
 
-type LoadMoreParams = ButtonHTMLAttributes<HTMLButtonElement>;
+interface LoadMoreParams extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+}
 
-export function LoadMore({ ...props }: LoadMoreParams) {
-  return <S.Container {...props}>Load more Pokémons</S.Container>;
+export function LoadMore({ children, ...props }: LoadMoreParams) {
+  return <S.Container {...props}>{children}</S.Container>;
 }
