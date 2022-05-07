@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import IconPokeball from "../../assets/icon-pokeball.svg";
 import { PokemonContext } from "../../contexts/pokemonContext";
@@ -20,7 +20,7 @@ import * as S from "./styles";
 export function Main() {
   const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const TopRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const {
     pokemonsData,
     currentTypeFilter,
@@ -74,7 +74,7 @@ export function Main() {
   return (
     <S.Container>
       <div className="container">
-        <S.Top>
+        <S.Top ref={TopRef}>
           <h2>Select your Pokémon</h2>
           <Search />
         </S.Top>
@@ -88,7 +88,10 @@ export function Main() {
                     name={item}
                     onClick={() => {
                       setCurrentTypeFilter(item);
-                      window.scrollTo(0, 1000);
+                      TopRef.current.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
                     }}
                   />
                 </li>
@@ -104,7 +107,7 @@ export function Main() {
                   <Loader />
                 ) : (
                   <>
-                    <div className="top-container" id="pokemonsSection">
+                    <div className="top-container">
                       <div>
                         <img src={IconPokeball} alt="red pokeball" />
                         <span>
@@ -132,12 +135,12 @@ export function Main() {
                             name={pokemon.name}
                             pokemonType={pokemon.type as keyof ColorsType}
                             image={pokemon.image}
-                            onClick={() =>
+                            onClick={() => {
                               setIsModalOpen({
                                 status: true,
                                 pokemon_id: pokemon.id,
-                              })
-                            }
+                              });
+                            }}
                           />
                         ))}
                     </S.AllPokemons>
