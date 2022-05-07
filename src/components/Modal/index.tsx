@@ -1,21 +1,17 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useContext, useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
+import { PokemonContext } from "../../contexts/pokemonContext";
 import { ColorsType } from "../../styles/colors";
 import { PokemonDetails } from "../../types/types";
+import { getModalData } from "../../utils/getModalData";
 import { TagType } from "../TagType";
 import * as S from "./styles";
 
-interface ModalProps {
-  isModalOpen: boolean;
-  setIsModalOpen: (data: boolean) => void;
-  pokemonModalData: PokemonDetails;
-}
-
-export function Modal({
-  isModalOpen,
-  setIsModalOpen,
-  pokemonModalData,
-}: ModalProps) {
+export function Modal() {
+  const { isModalOpen, setIsModalOpen } = useContext(PokemonContext);
+  const [pokemonData, setPokemonData] = useState({} as PokemonDetails);
   const {
     id,
     image,
@@ -26,19 +22,34 @@ export function Modal({
     weight,
     weaknesses,
     stats,
-  } = pokemonModalData;
+  } = pokemonData;
 
-  function handleCloseModal() {
-    setIsModalOpen(false);
-  }
+  useEffect(() => {
+    const { status, pokemon_id } = isModalOpen;
+
+    if (!status || pokemon_id === null) {
+      return;
+    }
+
+    async function getPokemonModalInfo() {
+      const response = await getModalData(pokemon_id!);
+      setPokemonData(response);
+    }
+
+    getPokemonModalInfo();
+  }, [isModalOpen]);
 
   return (
     <>
       {types ? (
-        <S.Container isVisible={isModalOpen}>
+        <S.Container isVisible={isModalOpen.status}>
           <div className="overlay" />
-          <S.Box isVisible={isModalOpen}>
-            <S.CloseModal onClick={handleCloseModal}>
+          <S.Box isVisible={isModalOpen.status}>
+            <S.CloseModal
+              onClick={() =>
+                setIsModalOpen({ status: false, pokemon_id: null })
+              }
+            >
               <MdOutlineClose />
             </S.CloseModal>
 

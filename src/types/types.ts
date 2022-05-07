@@ -22,6 +22,17 @@ export type PokemonInfo = {
   type: string;
 };
 
+export type PokemonsData = {
+  count: number;
+  next: string;
+  pokemons: Array<PokemonInfo>;
+};
+
+export type PokemonModal = {
+  status: boolean;
+  pokemon_id: number | null;
+};
+
 export type Stats = {
   name: string;
   value: number;

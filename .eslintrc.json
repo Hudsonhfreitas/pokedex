@@ -36,6 +36,7 @@
     "import/no-dynamic-require": "off",
     "react/require-default-props": "off",
     "react/jsx-no-useless-fragment": "off",
+    "react/jsx-no-constructed-context-values": "off",
     "@typescript-eslint/naming-convention": [
     "error",
     {

@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import IconPokeball from "../../assets/icon-pokeball.svg";
+import { PokemonContext } from "../../contexts/pokemonContext";
 import { listingPokemons } from "../../services/api";
 import { ColorsType } from "../../styles/colors";
-import {
-  Ability,
-  BaseStatus,
-  Name,
-  PokemonDetails,
-  Type,
-  PokemonInfo,
-} from "../../types/types";
+import { PokemonInfo } from "../../types/types";
 import { getPokemonsDetails } from "../../utils/getPokemonDetails";
 import { getPokemonType } from "../../utils/getPokemonType";
 import { types } from "../../utils/pokemonTypes";
@@ -23,96 +17,19 @@ import { Search } from "../Search";
 import { SelectMobile } from "../SelectMobile";
 import * as S from "./styles";
 
-interface PokemonsData {
-  count: number;
-  next: string;
-  pokemons: Array<PokemonInfo>;
-}
-
 export function Main() {
   const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
-  const [currentTypeFilter, setCurrentTypeFilter] = useState("all");
-  const [pokemonsData, setPokemonsData] = useState<PokemonsData | null>();
-  const [search, setSearch] = useState("");
-  const [errors, setErrors] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [pokemonModalData, setPokemonModalData] = useState(
-    {} as PokemonDetails
-  );
 
-  async function handleLoadMore() {
-    setIsLoadingMore(true);
-    if (pokemonsData && pokemonsData.next) {
-      const response = await listingPokemons(pokemonsData.next);
-      const results = await getPokemonsDetails(response.results, false);
-      setPokemonsData(
-        (prev) =>
-          prev && {
-            ...prev,
-            next: response.next,
-            pokemons: [...prev.pokemons, ...results],
-          }
-      );
-    }
-    setIsLoadingMore(false);
-  }
-
-  async function handleSearchPokemon() {
-    setErrors("");
-    setCurrentTypeFilter("");
-    try {
-      const { name, id, sprites, types } = await listingPokemons(
-        `https://pokeapi.co/api/v2/pokemon/${search}`
-      );
-      const info = {
-        id,
-        name,
-        image:
-          sprites.other.dream_world.front_default !== null
-            ? sprites.other.dream_world.front_default
-            : sprites.front_default,
-        type: types[0].type.name,
-      };
-      setPokemonsData({
-        count: 1,
-        next: "",
-        pokemons: [info],
-      });
-    } catch (e) {
-      setErrors("Pokémon não encontrado. Tente novamente!");
-      console.log(e);
-    }
-  }
-
-  async function handleShowDetails(poke_id: number) {
-    const { name, id, sprites, types, abilities, height, weight, stats } =
-      await listingPokemons(`https://pokeapi.co/api/v2/pokemon/${poke_id}`);
-    const { damage_relations } = await listingPokemons(types[0].type.url);
-
-    const details = {
-      id,
-      name,
-      image:
-        sprites.other.dream_world.front_default !== null
-          ? sprites.other.dream_world.front_default
-          : sprites.front_default,
-      types: types.map((item: Type) => item.type.name),
-      abilities: abilities.map((ability: Ability) => ability.ability.name),
-      height,
-      weight,
-      weaknesses: damage_relations.double_damage_from.map(
-        (item: Name) => item.name
-      ),
-      stats: stats.map((item: BaseStatus) => ({
-        name: item.stat.name,
-        value: item.base_stat,
-      })),
-    };
-    setPokemonModalData(details);
-    setIsModalOpen(true);
-  }
+  const {
+    pokemonsData,
+    currentTypeFilter,
+    setCurrentTypeFilter,
+    errors,
+    setErrors,
+    setIsModalOpen,
+    setPokemonsData,
+  } = useContext(PokemonContext);
 
   useEffect(() => {
     if (currentTypeFilter === "") {
@@ -159,11 +76,7 @@ export function Main() {
       <div className="container">
         <S.Top>
           <h2>Select your Pokémon</h2>
-          <Search
-            value={search}
-            setSearch={setSearch}
-            handleSearchPokemon={handleSearchPokemon}
-          />
+          <Search />
         </S.Top>
 
         <S.AreaAll>
@@ -219,15 +132,16 @@ export function Main() {
                             name={pokemon.name}
                             pokemonType={pokemon.type as keyof ColorsType}
                             image={pokemon.image}
-                            onClick={() => handleShowDetails(pokemon.id)}
+                            onClick={() =>
+                              setIsModalOpen({
+                                status: true,
+                                pokemon_id: pokemon.id,
+                              })
+                            }
                           />
                         ))}
                     </S.AllPokemons>
-                    {currentTypeFilter === "all" && (
-                      <LoadMore onClick={() => handleLoadMore()}>
-                        {isLoadingMore ? "Loading..." : "Load more Pokémons"}
-                      </LoadMore>
-                    )}
+                    {currentTypeFilter === "all" && <LoadMore />}
                   </>
                 )}
               </>
@@ -235,11 +149,7 @@ export function Main() {
           </S.RightContainer>
         </S.AreaAll>
       </div>
-      <Modal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        pokemonModalData={pokemonModalData}
-      />
+      <Modal />
     </S.Container>
   );
 }

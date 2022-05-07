@@ -1,25 +1,48 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, useState, useContext } from "react";
 import { GoSearch } from "react-icons/go";
 
+import { PokemonContext } from "../../contexts/pokemonContext";
+import { listingPokemons } from "../../services/api";
 import * as S from "./styles";
 
-type SearchParams = {
-  value: string;
-  setSearch: Dispatch<SetStateAction<string>>;
-  handleSearchPokemon: () => void;
-};
+export function Search() {
+  const [search, setSearch] = useState("");
+  const { setErrors, setCurrentTypeFilter, setPokemonsData } =
+    useContext(PokemonContext);
 
-export function Search({
-  value,
-  setSearch,
-  handleSearchPokemon,
-}: SearchParams) {
+  async function handleSearchPokemon() {
+    setErrors("");
+    setCurrentTypeFilter("");
+    try {
+      const { name, id, sprites, types } = await listingPokemons(
+        `https://pokeapi.co/api/v2/pokemon/${search}`
+      );
+      const info = {
+        id,
+        name,
+        image:
+          sprites.other.dream_world.front_default !== null
+            ? sprites.other.dream_world.front_default
+            : sprites.front_default,
+        type: types[0].type.name,
+      };
+      setPokemonsData({
+        count: 1,
+        next: "",
+        pokemons: [info],
+      });
+    } catch (e) {
+      setErrors("Pokémon não encontrado. Tente novamente!");
+      console.log(e);
+    }
+  }
+
   return (
     <S.Container>
       <input
         type="text"
         placeholder="Search name or code"
-        value={value}
+        value={search}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setSearch(e.target.value.toLowerCase())
         }
