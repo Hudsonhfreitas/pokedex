@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
-import { PokemonContext } from "../../contexts/pokemonContext";
+import { usePokemon } from "../../contexts/usePokemon";
 import { ColorsType } from "../../styles/colors";
 import { PokemonDetails } from "../../types/types";
 import { getModalData } from "../../utils/functions/getModalData";
@@ -10,7 +10,7 @@ import { TagType } from "../TagType";
 import * as S from "./styles";
 
 export function Modal() {
-  const { isModalOpen, setIsModalOpen } = useContext(PokemonContext);
+  const { isModalOpen, setIsModalOpen } = usePokemon();
   const [pokemonData, setPokemonData] = useState({} as PokemonDetails);
   const {
     id,

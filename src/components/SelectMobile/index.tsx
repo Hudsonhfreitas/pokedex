@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-import { PokemonContext } from "../../contexts/pokemonContext";
+import { usePokemon } from "../../contexts/usePokemon";
 import { types } from "../../utils/pokemonArrayTypes";
 import { FilterItem } from "../FilterItem";
 import * as S from "./styles";
@@ -14,8 +14,7 @@ export function SelectMobile({
   isSelectOpen,
   setIsSelectMobileOpen,
 }: SelectMobileProps) {
-  const { currentTypeFilter, setCurrentTypeFilter } =
-    useContext(PokemonContext);
+  const { currentTypeFilter, setCurrentTypeFilter } = usePokemon();
 
   function handleFilter(type: string) {
     setCurrentTypeFilter(type);

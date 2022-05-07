@@ -1,35 +1,33 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import IconPokeball from "../../assets/icon-pokeball.svg";
-import { PokemonContext } from "../../contexts/pokemonContext";
+import { usePokemon } from "../../contexts/usePokemon";
 import { listingPokemons } from "../../services/api";
 import { ColorsType } from "../../styles/colors";
 import { PokemonInfo } from "../../types/types";
 import { getPokemonsDetails } from "../../utils/functions/getPokemonDetails";
 import { getPokemonType } from "../../utils/functions/getPokemonType";
-import { types } from "../../utils/pokemonArrayTypes";
 import { CardPokemon } from "../CardPokemon";
-import { FilterItem } from "../FilterItem";
 import { Loader } from "../Loader";
 import { LoadMore } from "../LoadMore";
 import { Modal } from "../Modal";
 import { Search } from "../Search";
 import { SelectMobile } from "../SelectMobile";
+import { Sidebar } from "../Sidebar";
 import * as S from "./styles";
 
 export function Main() {
   const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const TopRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const topRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const {
     pokemonsData,
     currentTypeFilter,
-    setCurrentTypeFilter,
     errors,
     setErrors,
     setIsModalOpen,
     setPokemonsData,
-  } = useContext(PokemonContext);
+  } = usePokemon();
 
   useEffect(() => {
     if (currentTypeFilter === "") {
@@ -74,30 +72,12 @@ export function Main() {
   return (
     <S.Container>
       <div className="container">
-        <S.Top ref={TopRef}>
+        <S.Top ref={topRef}>
           <h2>Select your Pokémon</h2>
           <Search />
         </S.Top>
-
         <S.AreaAll>
-          <S.Aside>
-            <ul>
-              {types.map((item: string) => (
-                <li key={item}>
-                  <FilterItem
-                    name={item}
-                    onClick={() => {
-                      setCurrentTypeFilter(item);
-                      TopRef.current.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                      });
-                    }}
-                  />
-                </li>
-              ))}
-            </ul>
-          </S.Aside>
+          <Sidebar topRef={topRef} />
           <S.RightContainer>
             {errors ? (
               <h3>{errors}</h3>

@@ -3,6 +3,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useContext,
   useState,
 } from "react";
 
@@ -23,7 +24,7 @@ interface PokemonContext {
   setIsModalOpen: Dispatch<SetStateAction<PokemonModal>>;
 }
 
-export const PokemonContext = createContext({} as PokemonContext);
+const PokemonContext = createContext({} as PokemonContext);
 
 export function PokemonProvider({ children }: PokemonProviderProps) {
   const [currentTypeFilter, setCurrentTypeFilter] = useState("all");
@@ -50,4 +51,9 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
       {children}
     </PokemonContext.Provider>
   );
+}
+
+export function usePokemon() {
+  const context = useContext(PokemonContext);
+  return context;
 }

@@ -1,14 +1,13 @@
-import { ChangeEvent, useState, useContext } from "react";
+import { ChangeEvent, useState } from "react";
 import { GoSearch } from "react-icons/go";
 
-import { PokemonContext } from "../../contexts/pokemonContext";
+import { usePokemon } from "../../contexts/usePokemon";
 import { listingPokemons } from "../../services/api";
 import * as S from "./styles";
 
 export function Search() {
   const [search, setSearch] = useState("");
-  const { setErrors, setCurrentTypeFilter, setPokemonsData } =
-    useContext(PokemonContext);
+  const { setErrors, setCurrentTypeFilter, setPokemonsData } = usePokemon();
 
   async function handleSearchPokemon() {
     setErrors("");

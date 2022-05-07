@@ -54,27 +54,6 @@ export const AreaAll = styled.div`
   display: flex;
 `;
 
-export const Aside = styled.aside`
-  width: 100%;
-  max-width: 32.9rem;
-  border-right: 1px solid #eff3f6;
-  padding: 7.1rem 0;
-  ul {
-    li {
-      &:not(:last-child) {
-        margin-bottom: 4rem;
-      }
-    }
-  }
-  @media (max-width: 1200px) {
-    max-width: 15.9rem;
-    padding-top: 4rem;
-  }
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
 export const RightContainer = styled.div`
   width: 100%;
   padding-top: 7.1rem;

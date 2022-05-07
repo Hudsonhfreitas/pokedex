@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes, ReactNode, useContext, useState } from "react";
+import { ButtonHTMLAttributes, useState } from "react";
 
-import { PokemonContext } from "../../contexts/pokemonContext";
+import { usePokemon } from "../../contexts/usePokemon";
 import { listingPokemons } from "../../services/api";
 import { getPokemonsDetails } from "../../utils/functions/getPokemonDetails";
 import * as S from "./styles";
@@ -9,7 +9,7 @@ type LoadMoreParams = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function LoadMore({ ...props }: LoadMoreParams) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const { pokemonsData, setPokemonsData } = useContext(PokemonContext);
+  const { pokemonsData, setPokemonsData } = usePokemon();
 
   async function handleLoadMore() {
     setIsLoadingMore(true);
