@@ -1,18 +1,19 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, useContext } from "react";
 
+import { PokemonContext } from "../../contexts/pokemonContext";
 import { ColorsType } from "../../styles/colors";
 import * as S from "./styles";
 
 interface AsideButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   name: string;
-  currentType?: string;
 }
 
-export function FilterItem({ name, currentType, ...props }: AsideButton) {
+export function FilterItem({ name, ...props }: AsideButton) {
+  const { currentTypeFilter } = useContext(PokemonContext);
   return (
     <S.Container
       filterColor={name as keyof ColorsType}
-      className={currentType === name ? "active" : ""}
+      className={currentTypeFilter === name ? "active" : ""}
       {...props}
     >
       <img

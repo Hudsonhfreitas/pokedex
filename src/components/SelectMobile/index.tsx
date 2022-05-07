@@ -1,22 +1,22 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 
-import { types } from "../../utils/pokemonTypes";
+import { PokemonContext } from "../../contexts/pokemonContext";
+import { types } from "../../utils/pokemonArrayTypes";
 import { FilterItem } from "../FilterItem";
 import * as S from "./styles";
 
 type SelectMobileProps = {
-  currentType: string;
-  setCurrentTypeFilter: Dispatch<SetStateAction<string>>;
   isSelectOpen: boolean;
   setIsSelectMobileOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export function SelectMobile({
-  currentType,
-  setCurrentTypeFilter,
   isSelectOpen,
   setIsSelectMobileOpen,
 }: SelectMobileProps) {
+  const { currentTypeFilter, setCurrentTypeFilter } =
+    useContext(PokemonContext);
+
   function handleFilter(type: string) {
     setCurrentTypeFilter(type);
     setIsSelectMobileOpen(false);
@@ -29,16 +29,12 @@ export function SelectMobile({
         onClick={() => setIsSelectMobileOpen(!isSelectOpen)}
       >
         <span>Show</span>
-        <strong>All</strong>
+        <strong>{currentTypeFilter}</strong>
       </button>
       <ul>
         {types.map((type) => (
           <li key={type}>
-            <FilterItem
-              onClick={() => handleFilter(type)}
-              name={type}
-              currentType={currentType}
-            />
+            <FilterItem onClick={() => handleFilter(type)} name={type} />
           </li>
         ))}
       </ul>

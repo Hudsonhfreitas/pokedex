@@ -30,6 +30,7 @@ export const Container = styled.div<SelectMobileProps>`
       font-size: 1.4rem;
       color: #7a7d80;
       font-weight: 600;
+      text-transform: capitalize;
     }
   }
   ul {

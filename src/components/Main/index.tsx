@@ -7,7 +7,7 @@ import { ColorsType } from "../../styles/colors";
 import { PokemonInfo } from "../../types/types";
 import { getPokemonsDetails } from "../../utils/getPokemonDetails";
 import { getPokemonType } from "../../utils/getPokemonType";
-import { types } from "../../utils/pokemonTypes";
+import { types } from "../../utils/pokemonArrayTypes";
 import { CardPokemon } from "../CardPokemon";
 import { FilterItem } from "../FilterItem";
 import { Loader } from "../Loader";
@@ -86,7 +86,6 @@ export function Main() {
                 <li key={item}>
                   <FilterItem
                     name={item}
-                    currentType={currentTypeFilter}
                     onClick={() => setCurrentTypeFilter(item)}
                   />
                 </li>
@@ -118,8 +117,6 @@ export function Main() {
                       </div>
                     </div>
                     <SelectMobile
-                      currentType={currentTypeFilter}
-                      setCurrentTypeFilter={setCurrentTypeFilter}
                       isSelectOpen={isSelectMobileOpen}
                       setIsSelectMobileOpen={setIsSelectMobileOpen}
                     />
