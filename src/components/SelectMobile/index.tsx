@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { usePokemon } from "../../contexts/usePokemon";
+import { usePokemon } from "../../hooks/usePokemon";
 import { types } from "../../utils/pokemonArrayTypes";
 import { FilterItem } from "../FilterItem";
 import * as S from "./styles";

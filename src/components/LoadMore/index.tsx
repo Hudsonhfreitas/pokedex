@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, useState } from "react";
 
-import { usePokemon } from "../../contexts/usePokemon";
+import { usePokemon } from "../../hooks/usePokemon";
 import { listingPokemons } from "../../services/api";
 import { getPokemonsDetails } from "../../utils/functions/getPokemonDetails";
 import * as S from "./styles";

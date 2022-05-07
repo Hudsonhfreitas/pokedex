@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
-import { usePokemon } from "../../contexts/usePokemon";
+import { usePokemon } from "../../hooks/usePokemon";
 import { ColorsType } from "../../styles/colors";
 import { PokemonDetails } from "../../types/types";
 import { getModalData } from "../../utils/functions/getModalData";

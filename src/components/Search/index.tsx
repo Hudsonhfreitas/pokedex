@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { GoSearch } from "react-icons/go";
 
-import { usePokemon } from "../../contexts/usePokemon";
+import { usePokemon } from "../../hooks/usePokemon";
 import { listingPokemons } from "../../services/api";
 import * as S from "./styles";
 

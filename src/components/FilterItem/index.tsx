@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from "react";
 
-import { usePokemon } from "../../contexts/usePokemon";
+import { usePokemon } from "../../hooks/usePokemon";
 import { ColorsType } from "../../styles/colors";
 import * as S from "./styles";
 

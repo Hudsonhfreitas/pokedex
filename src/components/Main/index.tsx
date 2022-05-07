@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import IconPokeball from "../../assets/icon-pokeball.svg";
-import { usePokemon } from "../../contexts/usePokemon";
+import { usePokemon } from "../../hooks/usePokemon";
 import { listingPokemons } from "../../services/api";
 import { ColorsType } from "../../styles/colors";
 import { PokemonInfo } from "../../types/types";
