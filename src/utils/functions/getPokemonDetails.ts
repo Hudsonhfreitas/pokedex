@@ -1,5 +1,5 @@
-import { listingPokemons } from "../services/api";
-import { PokemonResult } from "../types/types";
+import { listingPokemons } from "../../services/api";
+import { PokemonResult } from "../../types/types";
 
 type PokemonType = {
   pokemon: PokemonResult;

@@ -5,7 +5,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { PokemonContext } from "../../contexts/pokemonContext";
 import { ColorsType } from "../../styles/colors";
 import { PokemonDetails } from "../../types/types";
-import { getModalData } from "../../utils/getModalData";
+import { getModalData } from "../../utils/functions/getModalData";
 import { TagType } from "../TagType";
 import * as S from "./styles";
 

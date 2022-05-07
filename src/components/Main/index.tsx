@@ -5,8 +5,8 @@ import { PokemonContext } from "../../contexts/pokemonContext";
 import { listingPokemons } from "../../services/api";
 import { ColorsType } from "../../styles/colors";
 import { PokemonInfo } from "../../types/types";
-import { getPokemonsDetails } from "../../utils/getPokemonDetails";
-import { getPokemonType } from "../../utils/getPokemonType";
+import { getPokemonsDetails } from "../../utils/functions/getPokemonDetails";
+import { getPokemonType } from "../../utils/functions/getPokemonType";
 import { types } from "../../utils/pokemonArrayTypes";
 import { CardPokemon } from "../CardPokemon";
 import { FilterItem } from "../FilterItem";
@@ -86,7 +86,10 @@ export function Main() {
                 <li key={item}>
                   <FilterItem
                     name={item}
-                    onClick={() => setCurrentTypeFilter(item)}
+                    onClick={() => {
+                      setCurrentTypeFilter(item);
+                      window.scrollTo(0, 1000);
+                    }}
                   />
                 </li>
               ))}
@@ -101,7 +104,7 @@ export function Main() {
                   <Loader />
                 ) : (
                   <>
-                    <div className="top-container">
+                    <div className="top-container" id="pokemonsSection">
                       <div>
                         <img src={IconPokeball} alt="red pokeball" />
                         <span>

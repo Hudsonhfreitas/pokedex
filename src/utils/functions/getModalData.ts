@@ -1,5 +1,5 @@
-import { listingPokemons } from "../services/api";
-import { Ability, BaseStatus, Name, Type } from "../types/types";
+import { listingPokemons } from "../../services/api";
+import { Ability, BaseStatus, Name, Type } from "../../types/types";
 
 export async function getModalData(poke_id: number) {
   const { name, id, sprites, types, abilities, height, weight, stats } =
