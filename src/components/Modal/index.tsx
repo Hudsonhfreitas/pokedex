@@ -13,7 +13,9 @@ import * as S from "./styles";
 export function Modal() {
   const { isModalOpen, setIsModalOpen } = usePokemon();
   const [isModalLoading, setIsModalLoading] = useState(false);
-  const [pokemonData, setPokemonData] = useState({} as PokemonDetails);
+  const [pokemonModalData, setPokemonModalData] = useState(
+    {} as PokemonDetails
+  );
   const {
     id,
     image,
@@ -24,7 +26,7 @@ export function Modal() {
     weight,
     weaknesses,
     stats,
-  } = pokemonData;
+  } = pokemonModalData;
 
   useEffect(() => {
     const { status, pokemon_id } = isModalOpen;
@@ -36,7 +38,7 @@ export function Modal() {
     async function getPokemonModalInfo() {
       setIsModalLoading(true);
       const response = await getModalData(pokemon_id!);
-      setPokemonData(response);
+      setPokemonModalData(response);
       setIsModalLoading(false);
     }
 
