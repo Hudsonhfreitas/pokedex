@@ -30,13 +30,11 @@ function PokemonList() {
 
     async function getPokemons() {
       let pokemons = null;
-      const url =
-        typeId && typeId !== 0
-          ? `https://pokeapi.co/api/v2/type/${typeId}`
-          : "https://pokeapi.co/api/v2/pokemon?limit=9&offset=0";
+      const endpoint =
+        typeId && typeId !== 0 ? `type/${typeId}` : "pokemon?limit=9&offset=0";
 
       try {
-        const response = await listingPokemons(url);
+        const response = await listingPokemons(endpoint);
 
         if (typeId !== 0) {
           setPokemonsData(null);

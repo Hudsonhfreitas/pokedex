@@ -1,7 +1,7 @@
+import axios from "axios";
 import { ButtonHTMLAttributes, useState } from "react";
 
 import { usePokemon } from "../../hooks/usePokemon";
-import { listingPokemons } from "../../services/api";
 import { getPokemonsDetails } from "../../utils/functions/getPokemonDetails";
 import * as S from "./styles";
 
@@ -14,7 +14,9 @@ export function LoadMore({ ...props }: LoadMoreParams) {
   async function handleLoadMore() {
     setIsLoadingMore(true);
     if (pokemonsData && pokemonsData.next) {
-      const response = await listingPokemons(pokemonsData.next);
+      const response = await axios
+        .get(pokemonsData.next)
+        .then((response) => response.data);
       const results = await getPokemonsDetails(response.results, false);
       setPokemonsData(
         (prev) =>

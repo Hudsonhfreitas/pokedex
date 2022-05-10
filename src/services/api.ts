@@ -1,6 +1,10 @@
 import axios from "axios";
 
-export async function listingPokemons(url: string) {
-  const data = await axios.get(url);
+const api = axios.create({
+  baseURL: "https://pokeapi.co/api/v2/",
+});
+
+export async function listingPokemons(endpoint: string) {
+  const data = await api.get(endpoint);
   return data.data;
 }
