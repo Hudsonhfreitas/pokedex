@@ -12,9 +12,8 @@ import * as S from "./styles";
 
 export function Main() {
   const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
-
-  const topRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const { pokemonsData, currentTypeFilter, errors } = usePokemon();
+  const topRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   return (
     <S.Container>
