@@ -14,7 +14,7 @@ export function Search() {
     setCurrentTypeFilter("");
     try {
       const { name, id, sprites, types } = await listingPokemons(
-        `https://pokeapi.co/api/v2/pokemon/${search}`
+        `/pokemon/${search}`
       );
       const info = {
         id,
