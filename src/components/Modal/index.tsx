@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
@@ -49,7 +48,10 @@ export function Modal() {
     <>
       {types ? (
         <S.Container isVisible={isModalOpen.status}>
-          <div className="overlay" />
+          <div
+            className="overlay"
+            onClick={() => setIsModalOpen({ status: false, pokemon_id: null })}
+          />
           {isModalLoading ? (
             <Loader />
           ) : (
