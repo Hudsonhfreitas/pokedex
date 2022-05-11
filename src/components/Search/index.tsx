@@ -6,8 +6,8 @@ import { listingPokemons } from "../../services/api";
 import * as S from "./styles";
 
 export function Search() {
-  const [search, setSearch] = useState("");
   const { setErrors, setCurrentTypeFilter, setPokemonsData } = usePokemon();
+  const [search, setSearch] = useState("");
 
   async function handleSearchPokemon() {
     setErrors("");
@@ -34,6 +34,7 @@ export function Search() {
       setErrors("Pokémon não encontrado. Tente novamente!");
       console.log(e);
     }
+    setSearch("");
   }
 
   return (
