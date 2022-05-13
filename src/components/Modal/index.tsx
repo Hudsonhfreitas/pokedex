@@ -10,7 +10,7 @@ import { TagType } from "../TagType";
 import * as S from "./styles";
 
 export function Modal() {
-  const { isModalOpen, setIsModalOpen } = usePokemon();
+  const { isModalOpen, handleModal } = usePokemon();
   const [isModalLoading, setIsModalLoading] = useState(false);
   const [pokemonModalData, setPokemonModalData] = useState(
     {} as PokemonDetails
@@ -50,16 +50,14 @@ export function Modal() {
         <S.Container isVisible={isModalOpen.status}>
           <div
             className="overlay"
-            onClick={() => setIsModalOpen({ status: false, pokemon_id: null })}
+            onClick={() => handleModal({ status: false, pokemon_id: null })}
           />
           {isModalLoading ? (
             <Loader />
           ) : (
             <S.Box isVisible={isModalOpen.status}>
               <S.CloseModal
-                onClick={() =>
-                  setIsModalOpen({ status: false, pokemon_id: null })
-                }
+                onClick={() => handleModal({ status: false, pokemon_id: null })}
               >
                 <MdOutlineClose />
               </S.CloseModal>

@@ -6,12 +6,13 @@ import { listingPokemons } from "../../services/api";
 import * as S from "./styles";
 
 export function Search() {
-  const { setErrors, setCurrentTypeFilter, setPokemonsData } = usePokemon();
+  const { handleErrors, handleCurrentTypeFilter, handlePokemonsData } =
+    usePokemon();
   const [search, setSearch] = useState("");
 
   async function handleSearchPokemon() {
-    setErrors("");
-    setCurrentTypeFilter("");
+    handleErrors("");
+    handleCurrentTypeFilter("");
     try {
       const { name, id, sprites, types } = await listingPokemons(
         `/pokemon/${search}`
@@ -25,13 +26,13 @@ export function Search() {
             : sprites.front_default,
         type: types[0].type.name,
       };
-      setPokemonsData({
+      handlePokemonsData({
         count: 1,
         next: "",
         pokemons: [info],
       });
     } catch (e) {
-      setErrors("Pokémon não encontrado. Tente novamente!");
+      handleErrors("Pokémon não encontrado. Tente novamente!");
       console.log(e);
     }
     setSearch("");

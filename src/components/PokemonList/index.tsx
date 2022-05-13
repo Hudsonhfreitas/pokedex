@@ -14,10 +14,10 @@ function PokemonList() {
   const [isLoading, setIsLoading] = useState(false);
   const {
     pokemonsData,
-    setPokemonsData,
-    setIsModalOpen,
+    handlePokemonsData,
+    handleModal,
     currentTypeFilter,
-    setErrors,
+    handleErrors,
   } = usePokemon();
 
   useEffect(() => {
@@ -37,19 +37,19 @@ function PokemonList() {
         const response = await listingPokemons(endpoint);
 
         if (typeId !== 0) {
-          setPokemonsData(null);
+          handlePokemonsData(null);
           pokemons = await getPokemonsDetails(response.pokemon, true);
         } else {
           pokemons = await getPokemonsDetails(response.results, false);
         }
 
-        setPokemonsData({
+        handlePokemonsData({
           count: typeId === 0 ? response.count : response.pokemon.length,
           next: response.next,
           pokemons,
         });
       } catch (e) {
-        setErrors("Não foi possivel carregar os pokémons, tente novamente!");
+        handleErrors("Não foi possivel carregar os pokémons, tente novamente!");
         console.log(e);
       }
 
@@ -73,7 +73,7 @@ function PokemonList() {
                 pokemonType={pokemon.type as keyof ColorsType}
                 image={pokemon.image}
                 onClick={() => {
-                  setIsModalOpen({
+                  handleModal({
                     status: true,
                     pokemon_id: pokemon.id,
                   });

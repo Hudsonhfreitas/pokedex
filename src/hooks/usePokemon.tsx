@@ -3,6 +3,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useCallback,
   useContext,
   useState,
 } from "react";
@@ -15,13 +16,13 @@ interface PokemonProviderProps {
 
 interface PokemonContext {
   currentTypeFilter: string;
-  setCurrentTypeFilter: Dispatch<SetStateAction<string>>;
+  handleCurrentTypeFilter: (filter: string) => void;
   pokemonsData: PokemonsData | null;
-  setPokemonsData: Dispatch<SetStateAction<PokemonsData | null>>;
+  handlePokemonsData: (data: PokemonsData | null) => void;
   errors: string;
-  setErrors: Dispatch<SetStateAction<string>>;
+  handleErrors: (error: string) => void;
   isModalOpen: PokemonModal;
-  setIsModalOpen: Dispatch<SetStateAction<PokemonModal>>;
+  handleModal: (state: PokemonModal) => void;
 }
 
 const PokemonContext = createContext({} as PokemonContext);
@@ -35,17 +36,33 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
     pokemon_id: null,
   });
 
+  const handleCurrentTypeFilter = useCallback((filter: string) => {
+    setCurrentTypeFilter(filter);
+  }, []);
+
+  const handlePokemonsData = useCallback((data: PokemonsData | null) => {
+    setPokemonsData(data);
+  }, []);
+
+  const handleErrors = useCallback((error: string) => {
+    setErrors(error);
+  }, []);
+
+  const handleModal = useCallback((state: PokemonModal) => {
+    setIsModalOpen(state);
+  }, []);
+
   return (
     <PokemonContext.Provider
       value={{
         currentTypeFilter,
-        setCurrentTypeFilter,
+        handleCurrentTypeFilter,
         pokemonsData,
-        setPokemonsData,
+        handlePokemonsData,
         errors,
-        setErrors,
+        handleErrors,
         isModalOpen,
-        setIsModalOpen,
+        handleModal,
       }}
     >
       {children}

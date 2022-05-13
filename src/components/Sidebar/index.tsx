@@ -10,11 +10,11 @@ interface SidebarProps {
 }
 
 export function Sidebar({ topRef }: SidebarProps) {
-  const { setCurrentTypeFilter, setErrors } = usePokemon();
+  const { handleCurrentTypeFilter, handleErrors } = usePokemon();
 
   function handleFilterItemClick(item: string) {
-    setErrors("");
-    setCurrentTypeFilter(item);
+    handleErrors("");
+    handleCurrentTypeFilter(item);
     if (topRef && topRef.current) {
       topRef.current.scrollIntoView({
         behavior: "smooth",

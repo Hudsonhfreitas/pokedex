@@ -14,10 +14,10 @@ export function SelectMobile({
   isSelectOpen,
   setIsSelectMobileOpen,
 }: SelectMobileProps) {
-  const { currentTypeFilter, setCurrentTypeFilter } = usePokemon();
+  const { currentTypeFilter, handleCurrentTypeFilter } = usePokemon();
 
   function handleFilter(type: string) {
-    setCurrentTypeFilter(type);
+    handleCurrentTypeFilter(type);
     setIsSelectMobileOpen(false);
   }
 
