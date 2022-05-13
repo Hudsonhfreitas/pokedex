@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import IconPokeball from "../../assets/icon-pokeball.svg";
 import { usePokemon } from "../../hooks/usePokemon";
@@ -11,9 +11,13 @@ import { Sidebar } from "../Sidebar";
 import * as S from "./styles";
 
 export function Main() {
-  const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
   const { pokemonsData, currentTypeFilter, errors } = usePokemon();
+  const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
   const topRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+  const handleSelectMobile = useCallback((state: boolean) => {
+    setIsSelectMobileOpen(state);
+  }, []);
 
   return (
     <S.Container>
@@ -46,7 +50,7 @@ export function Main() {
                 </div>
                 <SelectMobile
                   isSelectOpen={isSelectMobileOpen}
-                  setIsSelectMobileOpen={setIsSelectMobileOpen}
+                  handleSelectMobile={handleSelectMobile}
                 />
                 <PokemonList />
                 {currentTypeFilter === "all" && <LoadMore />}

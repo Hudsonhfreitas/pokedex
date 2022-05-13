@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 import { usePokemon } from "../../hooks/usePokemon";
 import { types } from "../../utils/pokemonArrayTypes";
 import { FilterItem } from "../FilterItem";
@@ -7,33 +5,30 @@ import * as S from "./styles";
 
 type SelectMobileProps = {
   isSelectOpen: boolean;
-  setIsSelectMobileOpen: Dispatch<SetStateAction<boolean>>;
+  handleSelectMobile: (state: boolean) => void;
 };
 
 export function SelectMobile({
   isSelectOpen,
-  setIsSelectMobileOpen,
+  handleSelectMobile,
 }: SelectMobileProps) {
   const { currentTypeFilter, handleCurrentTypeFilter } = usePokemon();
 
-  function handleFilter(type: string) {
+  function changeFilter(type: string) {
     handleCurrentTypeFilter(type);
-    setIsSelectMobileOpen(false);
+    handleSelectMobile(false);
   }
 
   return (
     <S.Container isSelectOpen={isSelectOpen}>
-      <button
-        type="button"
-        onClick={() => setIsSelectMobileOpen(!isSelectOpen)}
-      >
+      <button type="button" onClick={() => handleSelectMobile(!isSelectOpen)}>
         <span>Show</span>
         <strong>{currentTypeFilter}</strong>
       </button>
       <ul>
         {types.map((type) => (
           <li key={type}>
-            <FilterItem onClick={() => handleFilter(type)} name={type} />
+            <FilterItem name={type} onClick={() => changeFilter(type)} />
           </li>
         ))}
       </ul>

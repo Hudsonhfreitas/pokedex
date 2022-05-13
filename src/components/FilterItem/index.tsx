@@ -16,11 +16,7 @@ export function FilterItem({ name, ...props }: AsideButton) {
       className={currentTypeFilter === name ? "active" : ""}
       {...props}
     >
-      <img
-        // eslint-disable-next-line import/no-dynamic-require
-        src={require(`../../assets/filter_icons/${name}.svg`)}
-        alt={name}
-      />
+      <img src={require(`../../assets/filter_icons/${name}.svg`)} alt={name} />
       {name}
     </S.Container>
   );
