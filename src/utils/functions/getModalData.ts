@@ -3,7 +3,7 @@ import { Ability, BaseStatus, Name, Type } from "../../types/types";
 
 export async function getModalData(poke_id: number) {
   const { name, id, sprites, types, abilities, height, weight, stats } =
-    await listingPokemons(`https://pokeapi.co/api/v2/pokemon/${poke_id}`);
+    await listingPokemons(`pokemon/${poke_id}`);
   const { damage_relations } = await listingPokemons(types[0].type.url);
 
   const details = {
