@@ -2,10 +2,9 @@ import { lighten } from "polished";
 import styled from "styled-components";
 
 import { colors } from "../../styles/colors";
-import type { ColorsType } from "../../styles/colors";
 
 type TagTypeProps = {
-  color: keyof ColorsType;
+  color: keyof typeof colors;
 };
 
 export const Container = styled.span<TagTypeProps>`

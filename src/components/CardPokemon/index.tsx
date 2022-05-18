@@ -1,12 +1,12 @@
 import { ButtonHTMLAttributes } from "react";
 
-import { ColorsType } from "../../styles/colors";
+import { colors } from "../../styles/colors";
 import * as S from "./styles";
 
 interface CardPokemonParams extends ButtonHTMLAttributes<HTMLButtonElement> {
   pokemonId: number;
   name: string;
-  pokemonType: keyof ColorsType;
+  pokemonType: keyof typeof colors;
   image: string;
 }
 

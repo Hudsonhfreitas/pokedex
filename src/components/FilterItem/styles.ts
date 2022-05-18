@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import { colors, ColorsType } from "../../styles/colors";
+import { colors } from "../../styles/colors";
 
 type FilterItemsParams = {
-  filterColor: keyof ColorsType;
+  filterColor: keyof typeof colors;
 };
 
 export const Container = styled.button<FilterItemsParams>`

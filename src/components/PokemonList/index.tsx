@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 
 import { usePokemon } from "../../hooks/usePokemon";
 import { listingPokemons } from "../../services/api";
-import { ColorsType } from "../../styles/colors";
+import { colors } from "../../styles/colors";
 import { PokemonInfo } from "../../types/types";
 import { getPokemonsDetails } from "../../utils/functions/getPokemonDetails";
 import { getPokemonType } from "../../utils/functions/getPokemonType";
@@ -70,7 +70,7 @@ function PokemonList() {
                 key={pokemon.id}
                 pokemonId={pokemon.id}
                 name={pokemon.name}
-                pokemonType={pokemon.type as keyof ColorsType}
+                pokemonType={pokemon.type as keyof typeof colors}
                 image={pokemon.image}
                 onClick={() => {
                   handleModal({

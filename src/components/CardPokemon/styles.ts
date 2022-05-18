@@ -2,10 +2,9 @@ import { lighten } from "polished";
 import styled from "styled-components";
 
 import { colors } from "../../styles/colors";
-import type { ColorsType } from "../../styles/colors";
 
 type CardPokemonParams = {
-  pokemonType: keyof ColorsType;
+  pokemonType: keyof typeof colors;
 };
 
 export const Container = styled.button`

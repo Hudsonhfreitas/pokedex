@@ -1,9 +1,9 @@
-import type { ColorsType } from "../../styles/colors";
+import { colors } from "../../styles/colors";
 import * as S from "./styles";
 
 type TagTypeProps = {
   type: string;
-  color: keyof ColorsType;
+  color: keyof typeof colors;
 };
 
 export function TagType({ type, color }: TagTypeProps) {

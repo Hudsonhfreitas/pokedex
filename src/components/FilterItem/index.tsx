@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 
 import { usePokemon } from "../../hooks/usePokemon";
-import { ColorsType } from "../../styles/colors";
+import { colors } from "../../styles/colors";
 import * as S from "./styles";
 
 interface AsideButton extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,7 +12,7 @@ export function FilterItem({ name, ...props }: AsideButton) {
   const { currentTypeFilter } = usePokemon();
   return (
     <S.Container
-      filterColor={name as keyof ColorsType}
+      filterColor={name as keyof typeof colors}
       className={currentTypeFilter === name ? "active" : ""}
       {...props}
     >

@@ -1,25 +1,3 @@
-export type ColorsType = {
-  all: string;
-  bug: string;
-  dark: string;
-  dragon: string;
-  electric: string;
-  fairy: string;
-  fight: string;
-  ground: string;
-  ice: string;
-  normal: string;
-  poison: string;
-  psychic: string;
-  rock: string;
-  ghost: string;
-  grass: string;
-  steel: string;
-  water: string;
-  fire: string;
-  flying: string;
-};
-
 export const colors = {
   all: "#3E75C3",
   bug: "#9BBA48",

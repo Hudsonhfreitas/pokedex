@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { MdOutlineClose } from "react-icons/md";
 
 import { usePokemon } from "../../hooks/usePokemon";
-import { ColorsType } from "../../styles/colors";
+import { colors } from "../../styles/colors";
 import { PokemonDetails } from "../../types/types";
 import { getModalData } from "../../utils/functions/getModalData";
 import { Loader } from "../Loader";
@@ -89,7 +89,10 @@ export function Modal() {
                   {types &&
                     types.map((type) => (
                       <li key={type}>
-                        <TagType type={type} color={type as keyof ColorsType} />
+                        <TagType
+                          type={type}
+                          color={type as keyof typeof colors}
+                        />
                       </li>
                     ))}
                 </S.TypeList>
@@ -117,7 +120,7 @@ export function Modal() {
                         <li key={weakness}>
                           <TagType
                             type={weakness}
-                            color={weakness as keyof ColorsType}
+                            color={weakness as keyof typeof colors}
                           />
                         </li>
                       ))}
