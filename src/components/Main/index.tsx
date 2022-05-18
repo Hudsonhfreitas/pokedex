@@ -37,11 +37,11 @@ export function Main() {
                   <div>
                     <img src={IconPokeball} alt="red pokeball" />
                     <span>
-                      <strong>
-                        {pokemonsData && pokemonsData.count
-                          ? pokemonsData.count
-                          : "0"}
-                      </strong>
+                      {currentTypeFilter === "all" &&
+                        `${pokemonsData?.pokemons.length} de `}
+                      {pokemonsData && pokemonsData.count
+                        ? pokemonsData.count
+                        : "0"}
                       {pokemonsData && pokemonsData.count > 1
                         ? " Pokémons"
                         : " Pokémon"}
