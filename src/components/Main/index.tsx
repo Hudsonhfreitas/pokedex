@@ -3,7 +3,6 @@ import { useCallback, useRef, useState } from "react";
 import IconPokeball from "../../assets/icon-pokeball.svg";
 import { usePokemon } from "../../hooks/usePokemon";
 import { LoadMore } from "../LoadMore";
-import { Modal } from "../Modal";
 import PokemonList from "../PokemonList";
 import { Search } from "../Search";
 import { SelectMobile } from "../SelectMobile";
@@ -57,7 +56,6 @@ export function Main() {
           </S.RightContainer>
         </S.AreaAll>
       </div>
-      <Modal />
     </S.Container>
   );
 }
