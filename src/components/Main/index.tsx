@@ -37,8 +37,6 @@ export function Main() {
                   <div>
                     <img src={IconPokeball} alt="red pokeball" />
                     <span>
-                      {currentTypeFilter === "all" &&
-                        `${pokemonsData?.pokemons.length} de `}
                       {pokemonsData && pokemonsData.count
                         ? pokemonsData.count
                         : "0"}
