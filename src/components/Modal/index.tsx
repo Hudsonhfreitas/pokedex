@@ -34,14 +34,14 @@ export function Modal() {
       return;
     }
 
-    async function getPokemonModalInfo() {
+    async function getPokemonModalInfo(id: number) {
       setIsModalLoading(true);
-      const response = await getModalData(pokemon_id!);
+      const response = await getModalData(id);
       setPokemonModalData(response);
       setIsModalLoading(false);
     }
 
-    getPokemonModalInfo();
+    getPokemonModalInfo(pokemon_id);
   }, [isModalOpen]);
 
   return (

@@ -53,7 +53,7 @@ export function Main() {
                   handleSelectMobile={handleSelectMobile}
                 />
                 <PokemonList />
-                {currentTypeFilter === "all" && <LoadMore />}
+                {currentTypeFilter === "all" && pokemonsData && <LoadMore />}
               </>
             )}
           </S.RightContainer>
