@@ -1,8 +1,7 @@
 import { ButtonHTMLAttributes, useState } from "react";
 
 import { usePokemon } from "../../hooks/usePokemon";
-import { listingPokemons } from "../../services/api";
-import { getPokemonsDetails } from "../../utils/functions/getPokemonDetails";
+import { listingPokemons, getPokemonsDetails } from "../../services/api";
 import * as S from "./styles";
 
 type LoadMoreParams = ButtonHTMLAttributes<HTMLButtonElement>;

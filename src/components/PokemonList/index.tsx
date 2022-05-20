@@ -1,11 +1,10 @@
 import { memo, useEffect, useState } from "react";
 
 import { usePokemon } from "../../hooks/usePokemon";
-import { listingPokemons } from "../../services/api";
+import { listingPokemons, getPokemonsDetails } from "../../services/api";
 import { colors } from "../../styles/colors";
 import { PokemonInfo } from "../../types/types";
-import { getPokemonsDetails } from "../../utils/functions/getPokemonDetails";
-import { getPokemonType } from "../../utils/functions/getPokemonType";
+import { getPokemonType } from "../../utils/getPokemonType";
 import { CardPokemon } from "../CardPokemon";
 import { Loader } from "../Loader";
 import * as S from "./styles";
