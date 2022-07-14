@@ -58,6 +58,7 @@ export const Info = styled.div`
   .text {
     h3 {
       text-transform: capitalize;
+      color: #000;
     }
     span {
       text-align: left;

@@ -98,5 +98,5 @@ export const LoaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-top: 20%;
+  padding-top: 4rem;
 `;
