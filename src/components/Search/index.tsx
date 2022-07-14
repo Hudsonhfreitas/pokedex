@@ -6,13 +6,18 @@ import { listingPokemons } from "../../services/api";
 import * as S from "./styles";
 
 export function Search() {
-  const { handleErrors, handleCurrentTypeFilter, handlePokemonsData } =
-    usePokemon();
+  const {
+    handleErrors,
+    handleCurrentTypeFilter,
+    handlePokemonsData,
+    handleSearching,
+  } = usePokemon();
   const [search, setSearch] = useState("");
 
-  async function handleSearchPokemon() {
+  async function handleSearchPokemon(): Promise<void> {
     handleErrors("");
     handleCurrentTypeFilter("");
+    handleSearching(true);
     try {
       const { name, id, sprites, types } = await listingPokemons(
         `/pokemon/${search}`
@@ -36,6 +41,7 @@ export function Search() {
       console.log(e);
     }
     setSearch("");
+    handleSearching(false);
   }
 
   return (

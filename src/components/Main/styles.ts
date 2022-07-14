@@ -92,3 +92,11 @@ export const RightContainer = styled.div`
     padding-left: 0px;
   }
 `;
+
+export const LoaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 20%;
+`;

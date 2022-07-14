@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from "react";
 
 import IconPokeball from "../../assets/icon-pokeball.svg";
 import { usePokemon } from "../../hooks/usePokemon";
+import { Loader } from "../Loader";
 import { LoadMore } from "../LoadMore";
 import PokemonList from "../PokemonList";
 import { Search } from "../Search";
@@ -10,7 +11,7 @@ import { Sidebar } from "../Sidebar";
 import * as S from "./styles";
 
 export function Main() {
-  const { pokemonsData, currentTypeFilter, errors } = usePokemon();
+  const { pokemonsData, currentTypeFilter, errors, isSearching } = usePokemon();
   const [isSelectMobileOpen, setIsSelectMobileOpen] = useState(false);
   const topRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -27,33 +28,39 @@ export function Main() {
         </S.Top>
         <S.AreaAll>
           <Sidebar topRef={topRef} />
-          <S.RightContainer>
-            {errors ? (
-              <h3>{errors}</h3>
-            ) : (
-              <>
-                <div className="top-container">
-                  <div>
-                    <img src={IconPokeball} alt="red pokeball" />
-                    <span>
-                      {pokemonsData && pokemonsData.count
-                        ? pokemonsData.count
-                        : "0"}
-                      {pokemonsData && pokemonsData.count > 1
-                        ? " Pokémons"
-                        : " Pokémon"}
-                    </span>
+          {isSearching ? (
+            <S.LoaderContainer>
+              <Loader />
+            </S.LoaderContainer>
+          ) : (
+            <S.RightContainer>
+              {errors ? (
+                <h3>{errors}</h3>
+              ) : (
+                <>
+                  <div className="top-container">
+                    <div>
+                      <img src={IconPokeball} alt="red pokeball" />
+                      <span>
+                        {pokemonsData && pokemonsData.count
+                          ? pokemonsData.count
+                          : "0"}
+                        {pokemonsData && pokemonsData.count > 1
+                          ? " Pokémons"
+                          : " Pokémon"}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <SelectMobile
-                  isSelectOpen={isSelectMobileOpen}
-                  handleSelectMobile={handleSelectMobile}
-                />
-                <PokemonList />
-                {currentTypeFilter === "all" && pokemonsData && <LoadMore />}
-              </>
-            )}
-          </S.RightContainer>
+                  <SelectMobile
+                    isSelectOpen={isSelectMobileOpen}
+                    handleSelectMobile={handleSelectMobile}
+                  />
+                  <PokemonList />
+                  {currentTypeFilter === "all" && pokemonsData && <LoadMore />}
+                </>
+              )}
+            </S.RightContainer>
+          )}
         </S.AreaAll>
       </div>
     </S.Container>

@@ -21,6 +21,8 @@ interface PokemonContext {
   handleErrors: (error: string) => void;
   isModalOpen: PokemonModal;
   handleModal: (state: PokemonModal) => void;
+  isSearching: boolean;
+  handleSearching: (state: boolean) => void;
 }
 
 const PokemonContext = createContext({} as PokemonContext);
@@ -29,6 +31,7 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
   const [currentTypeFilter, setCurrentTypeFilter] = useState("all");
   const [errors, setErrors] = useState("");
   const [pokemonsData, setPokemonsData] = useState<PokemonsData | null>(null);
+  const [isSearching, setIsSearching] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState<PokemonModal>({
     status: false,
     pokemon_id: null,
@@ -50,6 +53,10 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
     setIsModalOpen(state);
   }, []);
 
+  const handleSearching = useCallback((state: boolean) => {
+    setIsSearching(state);
+  }, []);
+
   return (
     <PokemonContext.Provider
       value={{
@@ -61,6 +68,8 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
         handleErrors,
         isModalOpen,
         handleModal,
+        isSearching,
+        handleSearching,
       }}
     >
       {children}
