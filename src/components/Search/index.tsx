@@ -47,7 +47,7 @@ export function Search() {
   return (
     <S.Container>
       <input
-        type="text"
+        type="search"
         placeholder="Search name or code"
         value={search}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
