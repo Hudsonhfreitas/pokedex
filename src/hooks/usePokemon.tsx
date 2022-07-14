@@ -31,7 +31,7 @@ export function PokemonProvider({ children }: PokemonProviderProps) {
   const [currentTypeFilter, setCurrentTypeFilter] = useState("all");
   const [errors, setErrors] = useState("");
   const [pokemonsData, setPokemonsData] = useState<PokemonsData | null>(null);
-  const [isSearching, setIsSearching] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<PokemonModal>({
     status: false,
     pokemon_id: null,
