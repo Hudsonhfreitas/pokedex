@@ -17,7 +17,7 @@ export function FilterItem({ name, ...props }: AsideButton) {
       {...props}
     >
       <img src={require(`../../assets/filter_icons/${name}.svg`)} alt={name} />
-      {name}
+      <span>{name}</span>
     </S.Container>
   );
 }

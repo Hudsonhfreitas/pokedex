@@ -14,6 +14,7 @@ export const Container = styled.button<FilterItemsParams>`
   line-height: 150%;
   transition: all 0.3s;
   text-transform: capitalize;
+  width: 100%;
   display: flex;
   align-items: center;
 
@@ -21,6 +22,12 @@ export const Container = styled.button<FilterItemsParams>`
     padding-right: 2.5rem;
     width: 40px;
     height: 16px;
+    display: block;
+  }
+
+  span {
+    width: 100%;
+    text-align: left;
   }
 
   &:hover,
